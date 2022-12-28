@@ -16,7 +16,7 @@ interface Props {
 }
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://rf-video-sharing-site.herokuapp.com/api/v1",
+  baseUrl: "http://localhost:8000/api/v1",
   credentials: "include", // send cookies with request
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
