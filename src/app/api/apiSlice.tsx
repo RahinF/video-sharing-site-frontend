@@ -16,7 +16,10 @@ interface Props {
 }
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:8000/api/v1",
+  baseUrl:
+    process.env.NODE_ENV === "production"
+      ? "https://watch-tv-api.onrender.com/api/v1"
+      : "http://localhost:8000/api/v1",
   credentials: "include", // send cookies with request
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
