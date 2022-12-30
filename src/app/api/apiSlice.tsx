@@ -9,6 +9,7 @@ import { setToken, clearToken } from "../../features/auth/authSlice";
 import { clearUser, setUser } from "../../features/user/userSlice";
 import User from "../../types/user";
 import { RootState } from "../store";
+import { url } from "./config";
 
 interface Props {
   user: User
@@ -16,10 +17,7 @@ interface Props {
 }
 
 const baseQuery = fetchBaseQuery({
-  baseUrl:
-    process.env.NODE_ENV === "production"
-      ? "https://watch-tv-api.onrender.com/api/v1"
-      : "http://localhost:8000/api/v1",
+  baseUrl: `${url}/api/v1`,
   credentials: "include", // send cookies with request
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
