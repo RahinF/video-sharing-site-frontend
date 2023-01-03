@@ -1,17 +1,17 @@
+import { DotsThreeVertical } from "phosphor-react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import LikeButton from "../../components/LikeButton";
-import { useSelector } from "react-redux";
-import {
-  useDeleteCommentMutation,
-  useUnlikeCommentMutation,
-  useLikeCommentMutation,
-} from "./commentsApiSlice";
-import { useGetUserQuery } from "../user/userApiSlice";
-import { selectCurrentUserId } from "../user/userSlice";
-import { Link } from "react-router-dom";
 import { Comment as CommentType } from "../../types/comment";
 import { timeAgo } from "../../util/date";
-import { DotsThreeVertical } from "phosphor-react";
+import { useGetUserQuery } from "../user/userApiSlice";
+import { selectCurrentUserId } from "../user/userSlice";
+import {
+  useDeleteCommentMutation,
+  useLikeCommentMutation,
+  useUnlikeCommentMutation,
+} from "./commentsApiSlice";
 
 interface Props {
   comment: CommentType;
@@ -67,7 +67,7 @@ const Comment = ({ comment }: Props) => {
 
         {isCommentOwner && (
           <div className="dropdown-end dropdown">
-            <label tabIndex={0} className="btn btn-ghost btn-circle">
+            <label tabIndex={0} className="btn-ghost btn-circle btn">
               <DotsThreeVertical size={24} />
             </label>
             <ul

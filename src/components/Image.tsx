@@ -34,7 +34,7 @@ const Image = ({ src, alt }: Props) => {
         })}
       />
 
-      {loading && <div className="h-full animate-pulse bg-slate-200" />}
+      {loading && <div className="h-full animate-pulse bg-zinc-700" />}
     </>
   );
 };

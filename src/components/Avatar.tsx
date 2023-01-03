@@ -18,7 +18,7 @@ const Avatar = ({ src, alt, size }: Props) => {
           "h-16 w-16 ": !size || size === "md", // default
           "h-24 w-24": size === "lg",
           "h-32 w-32": size === "xl",
-          "bg-slate-200 animate-pulse": !loaded,
+          "bg-zinc-700 animate-pulse": !loaded,
           "bg-base-300": !src
         })}
       >
