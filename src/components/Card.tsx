@@ -10,7 +10,7 @@ interface Props {
   video: Video;
 }
 
-const Card = ({ video }: Props) => {
+const Card: React.FC<Props> = ({ video }) => {
   const { data: user } = useGetUserQuery(video.userId);
 
   return (
