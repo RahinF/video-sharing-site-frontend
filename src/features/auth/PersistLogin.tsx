@@ -4,7 +4,7 @@ import { useRefreshMutation } from "./authApiSlice";
 import { useSelector } from "react-redux";
 import { selectCurrentToken } from "./authSlice";
 
-const PersistLogin = () => {
+const PersistLogin: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [refresh] = useRefreshMutation();
   const token = useSelector(selectCurrentToken);
@@ -12,7 +12,7 @@ const PersistLogin = () => {
   useEffect(() => {
     const verifyRefreshToken = async () => {
       try {
-        await refresh(null).unwrap();
+        await refresh().unwrap();
       } catch (error) {
         console.error(error);
       } finally {

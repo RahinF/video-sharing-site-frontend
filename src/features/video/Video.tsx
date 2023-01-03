@@ -1,13 +1,19 @@
 import { useParams } from "react-router-dom";
 import Recommendation from "./Recommendation";
-import VideoInfo from "./VideoInfo";
 import { useAddViewMutation, useGetVideoQuery } from "./videoApiSlice";
+import VideoInfo from "./VideoInfo";
 
-const Video = () => {
+const Video: React.FC = () => {
   const { id } = useParams();
 
   const { data: video } = useGetVideoQuery(id);
   const [addView] = useAddViewMutation();
+
+  const handleEnded = async () => {
+    if (video?._id) {
+      await addView(video._id);
+    }
+  };
 
   return (
     <div>
@@ -17,7 +23,7 @@ const Video = () => {
         src={video?.videoUrl}
         controls
         autoPlay
-        onEnded={() => addView(video?._id)}
+        onEnded={handleEnded}
       />
       {video?._id && <VideoInfo video={video} />}
 

@@ -8,15 +8,15 @@ import { Plus } from "phosphor-react";
 import clsx from "clsx";
 import { generateVideoThumbnails, getVideoDuration } from "./generateThumbnail";
 
-const Upload = () => {
+const Upload:React.FC = () => {
   const currentUserId = useSelector(selectCurrentUserId);
   const [uploadVideo] = useUploadVideoMutation();
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
 
-  const [tag, setTag] = useState("");
+  const [tag, setTag] = useState<string>("");
   const [tags, setTags] = useState<string[]>([]);
   const [selectedThumbnail, setSelectedThumbnail] = useState<
     string | undefined
@@ -24,7 +24,7 @@ const Upload = () => {
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState<number>(0);
 
   const [thumbnailsPreview, setThumbnailsPreview] = useState<string[]>([]);
 
@@ -33,17 +33,19 @@ const Upload = () => {
   );
 
   const handleUpload = async () => {
+    if(!currentUserId) return;
+
     let imageUrl, videoUrl;
 
     setIsLoading(true);
 
     try {
       if (selectedThumbnail) {
-        imageUrl = await uploadFileBase64(selectedThumbnail, "images/");
+        imageUrl = await uploadFileBase64(selectedThumbnail, "images/") as string;
       }
 
       if (videoFile) {
-        videoUrl = await uploadFile(videoFile, "videos/");
+        videoUrl = await uploadFile(videoFile, "videos/") as string;
       }
 
       const video = await uploadVideo({

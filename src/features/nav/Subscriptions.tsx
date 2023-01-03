@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { useAppSelector } from "../../app/hooks";
 import { selectCurrentToken } from "../auth/authSlice";
 import { selectCurrentUserSubscriptions } from "../user/userSlice";
@@ -9,7 +8,7 @@ interface Props {
 }
 
 const Subscriptions: React.FC<Props> = ({ closeMenu }) => {
-  const subscriptions = useSelector(selectCurrentUserSubscriptions);
+  const subscriptions = useAppSelector(selectCurrentUserSubscriptions);
   const isLoggedIn = useAppSelector(selectCurrentToken);
 
   const hasSubscriptions = !!subscriptions.length;

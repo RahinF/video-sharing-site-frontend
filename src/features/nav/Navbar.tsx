@@ -11,7 +11,7 @@ import { List, UploadSimple, User } from "phosphor-react";
 import { selectMenuIsOpen, setMenuIsOpen } from "./menuSlice";
 import useWindowSize from "../../hooks/useWindowSize";
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   const [logout] = useLogoutMutation();
   const currentUserId = useSelector(selectCurrentUserId);
   const isLoggedIn = currentUserId;
@@ -59,7 +59,7 @@ const Navbar = () => {
       <li>
         <Link to={`/user/${currentUserId}`}>My Channel</Link>
       </li>
-      <li onClick={() => logout(null)}>
+      <li onClick={() => logout()}>
         <span>Logout</span>
       </li>
     </>

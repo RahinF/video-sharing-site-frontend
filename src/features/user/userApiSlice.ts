@@ -7,20 +7,33 @@ const userApiSlice = apiSlice.injectEndpoints({
     getUser: builder.query<User, string | undefined>({
       query: (id) => `users/find/${id}`,
     }),
-    updateUser: builder.mutation({
+    updateUser: builder.mutation<
+      User,
+      {
+        id: string | undefined;
+        inputs: {
+          name: string;
+          bio: string;
+          image: string | undefined;
+        };
+      }
+    >({
       query: ({ id, inputs }) => ({
         url: `users/${id}`,
         method: "PUT",
         body: inputs,
       }),
     }),
-    deleteUser: builder.mutation({
+    deleteUser: builder.mutation<string, string | undefined>({
       query: (id) => ({
         url: `users/${id}`,
         method: "DELETE",
       }),
     }),
-    subscribe: builder.mutation({
+    subscribe: builder.mutation<
+      string,
+      { currentUserId: string | null; videoOwnerId: string | undefined }
+    >({
       query: ({ currentUserId, videoOwnerId }) => ({
         url: `users/${currentUserId}/subscribe/${videoOwnerId}`,
         method: "PUT",
@@ -28,13 +41,16 @@ const userApiSlice = apiSlice.injectEndpoints({
       async onQueryStarted({ videoOwnerId }, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
-          dispatch(addSubscription(videoOwnerId));
+          videoOwnerId && dispatch(addSubscription(videoOwnerId));
         } catch (error) {
           console.log(error);
         }
       },
     }),
-    unsubscribe: builder.mutation({
+    unsubscribe: builder.mutation<
+      string,
+      { currentUserId: string | null; videoOwnerId: string | undefined }
+    >({
       query: ({ currentUserId, videoOwnerId }) => ({
         url: `users/${currentUserId}/unsubscribe/${videoOwnerId}`,
         method: "PUT",
@@ -42,7 +58,7 @@ const userApiSlice = apiSlice.injectEndpoints({
       async onQueryStarted({ videoOwnerId }, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
-          dispatch(removeSubscription(videoOwnerId));
+          videoOwnerId && dispatch(removeSubscription(videoOwnerId));
         } catch (error) {
           console.log(error);
         }

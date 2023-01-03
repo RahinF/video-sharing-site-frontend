@@ -1,19 +1,19 @@
+import clsx from "clsx";
+import { Plus } from "phosphor-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { deleteFile } from "../../firebaseFunctions";
 import {
   useDeleteVideoMutation,
   useGetVideoQuery,
   useUpdateVideoMutation,
 } from "./videoApiSlice";
-import { Plus } from "phosphor-react";
-import { deleteFile } from "../../firebaseFunctions";
-import clsx from "clsx";
 
 interface Props {
   handleModalClose: () => void;
 }
 
-const EditVideo = ({ handleModalClose }: Props) => {
+const EditVideo: React.FC<Props> = ({ handleModalClose }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -37,7 +37,8 @@ const EditVideo = ({ handleModalClose }: Props) => {
     }
   }, [video, isSuccess]);
 
-  const handleUpload = async () => {
+  const handleUpdate = async () => {
+    if (!id) return;
     setIsLoading(true);
     try {
       await updateVideo({
@@ -52,6 +53,7 @@ const EditVideo = ({ handleModalClose }: Props) => {
   };
 
   const handleDelete = async () => {
+    if (!id) return;
     try {
       await deleteFile(video!.videoUrl);
       await deleteVideo(id).unwrap();
@@ -142,7 +144,7 @@ const EditVideo = ({ handleModalClose }: Props) => {
               onChange={(event) => setTag(event.target.value)}
             />
             <button
-              className="btn btn-primary btn-square -ml-12 rounded-tl-none rounded-bl-none"
+              className="btn-primary btn-square btn -ml-12 rounded-tl-none rounded-bl-none"
               onClick={addTag}
               disabled={!tag}
             >
@@ -156,7 +158,7 @@ const EditVideo = ({ handleModalClose }: Props) => {
             <button
               key={index}
               onClick={() => removeTag(index)}
-              className="btn btn-sm"
+              className="btn-sm btn"
             >
               {tag}
             </button>
@@ -165,16 +167,16 @@ const EditVideo = ({ handleModalClose }: Props) => {
       </div>
 
       <div className="mt-8 flex justify-between">
-        <button className="btn btn-outline btn-error" onClick={handleDelete}>
+        <button className="btn-outline btn-error btn" onClick={handleDelete}>
           Delete
         </button>
 
         <button
-          onClick={handleUpload}
+          onClick={handleUpdate}
           disabled={
             !title || titleIsTooLong || descriptionIsTooLong || isLoading
           }
-          className={clsx("btn btn-primary", { loading: isLoading })}
+          className={clsx("btn-primary btn", { loading: isLoading })}
         >
           {isLoading ? "Updating..." : "Update"}
         </button>

@@ -12,50 +12,77 @@ const videoApiSlice = apiSlice.injectEndpoints({
     getVideosByUser: builder.query<Video[], string | undefined>({
       query: (id) => `videos/user/${id}`,
     }),
-    getVideosByTags: builder.query<Video[], string[] | string | undefined | null>({
+    getVideosByTags: builder.query<
+      Video[],
+      string[] | string | undefined | null
+    >({
       query: (tags) => `videos/tags?tags=${tags}`,
     }),
     getVideosBySearch: builder.query<Video[], string>({
       query: (search) => `videos/search${search}`,
     }),
-    deleteVideo: builder.mutation({
+    deleteVideo: builder.mutation<string, string>({
       query: (id) => ({
         url: `videos/${id}`,
         method: "DELETE",
       }),
     }),
-    updateVideo: builder.mutation({
+    updateVideo: builder.mutation<
+      Video,
+      {
+        id: string;
+        inputs: {
+          title: string;
+          description: string;
+          imageUrl?: string;
+          tags: string[];
+        };
+      }
+    >({
       query: ({ id, inputs }) => ({
         url: `videos/${id}`,
         method: "PUT",
         body: inputs,
       }),
     }),
-    uploadVideo: builder.mutation({
+    uploadVideo: builder.mutation<Video, {
+      title: string,
+      description: string,
+      duration: number,
+      imageUrl : string | undefined,
+      videoUrl: string| undefined,
+      tags: string[],
+      userId: string,
+    }>({
       query: (inputs) => ({
         url: `videos/`,
         method: "POST",
         body: inputs,
       }),
     }),
-    addView: builder.mutation({
+    addView: builder.mutation<string, string>({
       query: (id) => ({
         url: `videos/view/${id}`,
         method: "PUT",
       }),
     }),
-    likeVideo: builder.mutation({
+    likeVideo: builder.mutation<
+      string,
+      { currentUserId: string | null; videoId: string }
+    >({
       query: ({ currentUserId, videoId }) => ({
         url: `users/${currentUserId}/video/like/${videoId}`,
         method: "PUT",
       }),
-
     }),
-    unlikeVideo: builder.mutation({
+    unlikeVideo: builder.mutation<
+      string,
+      { currentUserId: string | null; videoId: string }
+    >({
       query: ({ currentUserId, videoId }) => ({
         url: `users/${currentUserId}/video/unlike/${videoId}`,
         method: "PUT",
-      })
+      }),
     }),
   }),
 });

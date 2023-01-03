@@ -1,20 +1,20 @@
-import Avatar from "../../components/Avatar";
+import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Avatar from "../../components/Avatar";
+import { deleteFile, uploadFile } from "../../firebaseFunctions";
+import { useLogoutMutation } from "../auth/authApiSlice";
 import {
   useDeleteUserMutation,
   useGetUserQuery,
   useUpdateUserMutation,
 } from "./userApiSlice";
-import { useLogoutMutation } from "../auth/authApiSlice";
-import { deleteFile, uploadFile } from "../../firebaseFunctions";
-import clsx from "clsx";
 
 interface Props {
   handleModalClose: () => void;
 }
 
-const EditUser = ({ handleModalClose }: Props) => {
+const EditUser: React.FC<Props> = ({ handleModalClose }) => {
   const { id } = useParams();
   const { data: user, isSuccess } = useGetUserQuery(id);
   const [logout] = useLogoutMutation();
@@ -45,7 +45,7 @@ const EditUser = ({ handleModalClose }: Props) => {
   const handleDelete = async () => {
     try {
       await deleteUser(id).unwrap();
-      await logout(null);
+      await logout();
     } catch (error) {
       console.log("failed to delete account");
     }
@@ -57,7 +57,7 @@ const EditUser = ({ handleModalClose }: Props) => {
 
     try {
       if (imageFile) {
-        imageUrl = await uploadFile(imageFile, "images/");
+        imageUrl = (await uploadFile(imageFile, "images/")) as string;
 
         if (user?.image) {
           await deleteFile(user.image);
@@ -151,13 +151,13 @@ const EditUser = ({ handleModalClose }: Props) => {
       </div>
 
       <div className="mt-5 flex w-full justify-between">
-        <button className="btn btn-outline btn-error" onClick={handleDelete}>
+        <button className="btn-outline btn-error btn" onClick={handleDelete}>
           delete account
         </button>
         <button
           onClick={handleUpdate}
           disabled={!name || nameIsTooLong || bioIsTooLong || isLoading}
-          className={clsx("btn btn-primary", { loading: isLoading })}
+          className={clsx("btn-primary btn", { loading: isLoading })}
         >
           {isLoading ? "updating" : "update"}
         </button>
