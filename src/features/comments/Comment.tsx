@@ -1,4 +1,5 @@
 import { DotsThreeVertical } from "phosphor-react";
+import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Avatar from "../../components/Avatar";
@@ -28,7 +29,12 @@ const Comment = ({ comment }: Props) => {
   const isCommentOwner = currentUserId === comment.userId;
 
   const handleDelete = async () => {
-    await deleteComment(comment._id);
+    try {
+      await deleteComment(comment._id).unwrap();
+      toast.success("Comment deleted.");
+    } catch (error) {
+      toast.error("Could not delete comment.");
+    }
   };
 
   const handleLike = async () => {

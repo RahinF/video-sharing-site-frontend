@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import Videos from "../../components/Videos";
-import { useGetVideosByTagsQuery } from "./videoApiSlice";
+import { useGetVideosByTagsQuery } from "../video/videoApiSlice";
 
 const Tags = () => {
   const [searchParams] = useSearchParams();

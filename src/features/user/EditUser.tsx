@@ -9,6 +9,7 @@ import {
   useGetUserQuery,
   useUpdateUserMutation,
 } from "./userApiSlice";
+import { toast } from "react-hot-toast";
 
 interface Props {
   handleModalClose: () => void;
@@ -47,7 +48,7 @@ const EditUser: React.FC<Props> = ({ handleModalClose }) => {
       await deleteUser(id).unwrap();
       await logout();
     } catch (error) {
-      console.log("failed to delete account");
+      toast.error("Could not delete account.");
     }
   };
 
@@ -67,7 +68,7 @@ const EditUser: React.FC<Props> = ({ handleModalClose }) => {
       await updateUser({ id, inputs: { name, bio, image: imageUrl } }).unwrap();
       handleModalClose();
     } catch (error) {
-      console.log("could not update user");
+      toast.error("Could not update user.");
     } finally {
       setIsLoading(false);
     }

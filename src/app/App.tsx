@@ -7,12 +7,12 @@ import {
 import Layout from "../components/layout/Layout";
 import PersistLogin from "../features/auth/PersistLogin";
 import RequireAuth from "../features/auth/RequireAuth";
-import User from "../features/user/User";
-import Home from "../features/video/Home";
-import Search from "../features/video/Search";
-import Tags from "../features/video/Tags";
+import Home from "../features/feed/Home";
+import Search from "../features/feed/Search";
+import Tags from "../features/feed/Tags";
+import User from "../features/user";
+import Video from "../features/video";
 import Upload from "../features/video/Upload";
-import Video from "../features/video/Video";
 
 const App: React.FC = () => {
   const router = createBrowserRouter(

@@ -1,19 +1,20 @@
-import LikeButton from "../../components/LikeButton";
-import { useUnlikeVideoMutation, useLikeVideoMutation } from "./videoApiSlice";
-import { selectCurrentUserId } from "../user/userSlice";
-import { Video } from "../../types/video";
-import { useState } from "react";
 import clsx from "clsx";
-import Comments from "../comments/Comments";
-import { useSelector } from "react-redux";
-import VideoInfoTab from "./VideoInfoTab";
 import { BookOpen, ChatTeardropDots } from "phosphor-react";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
+import { useSelector } from "react-redux";
+import LikeButton from "../../components/LikeButton";
+import { Video } from "../../types/video";
+import Comments from "../comments/Comments";
+import { selectCurrentUserId } from "../user/userSlice";
+import { useLikeVideoMutation, useUnlikeVideoMutation } from "./videoApiSlice";
+import VideoInfoTab from "./VideoInfoTab";
 
 interface Props {
   video: Video;
 }
 
-const VideoInfo = ({ video }: Props) => {
+const VideoInfo: React.FC<Props> = ({ video }) => {
   const currentUserId = useSelector(selectCurrentUserId);
 
   const [likeVideo] = useLikeVideoMutation();
@@ -26,11 +27,21 @@ const VideoInfo = ({ video }: Props) => {
   const [activeTab, setActiveTab] = useState("Info");
 
   const handleLike = async () => {
-    await likeVideo({ currentUserId, videoId: video._id });
+    try {
+      await likeVideo({ currentUserId, videoId: video._id }).unwrap();
+      toast.success("Video liked.");
+    } catch (error) {
+      toast.error("Could not like video.");
+    }
   };
 
   const handleUnlike = async () => {
-    await unlikeVideo({ currentUserId, videoId: video._id });
+    try {
+      await unlikeVideo({ currentUserId, videoId: video._id }).unwrap();
+      toast.success("Video disliked.");
+    } catch (error) {
+      toast.error("Could not dislike video.");
+    }
   };
 
   const Tabs = (
@@ -38,10 +49,10 @@ const VideoInfo = ({ video }: Props) => {
       {tabs.map((tab, index) => {
         const isTabActive = activeTab === tab.text;
         return (
-          <div className="flex flex-col items-center gap-2"  key={index}>
+          <div className="flex flex-col items-center gap-2" key={index}>
             <button
               className={clsx({
-                "btn btn-circle": true,
+                "btn-circle btn": true,
                 [isTabActive ? "btn-primary" : "btn-ghost"]: true,
               })}
               onClick={() => setActiveTab(tab.text)}

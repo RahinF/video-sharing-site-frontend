@@ -1,5 +1,5 @@
 import Videos from "../../components/Videos";
-import { useGetVideosQuery } from "./videoApiSlice";
+import { useGetVideosQuery } from "../video/videoApiSlice";
 
 interface Props {
   type: string;

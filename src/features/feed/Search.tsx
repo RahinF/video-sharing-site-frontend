@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import Videos from "../../components/Videos";
-import { useGetVideosBySearchQuery } from "./videoApiSlice";
+import { useGetVideosBySearchQuery } from "../video/videoApiSlice";
 
 const Search = () => {
   const { search } = useLocation();

@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { selectCurrentUserId } from "../user/userSlice";
-import { uploadFile, uploadFileBase64 } from "../../firebaseFunctions";
-import { useNavigate } from "react-router-dom";
-import { useUploadVideoMutation } from "./videoApiSlice";
-import { Plus } from "phosphor-react";
 import clsx from "clsx";
+import { Plus } from "phosphor-react";
+import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { uploadFile, uploadFileBase64 } from "../../firebaseFunctions";
+import { selectCurrentUserId } from "../user/userSlice";
 import { generateVideoThumbnails, getVideoDuration } from "./generateThumbnail";
+import { useUploadVideoMutation } from "./videoApiSlice";
 
-const Upload:React.FC = () => {
+const Upload: React.FC = () => {
   const currentUserId = useSelector(selectCurrentUserId);
   const [uploadVideo] = useUploadVideoMutation();
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const Upload:React.FC = () => {
   );
 
   const handleUpload = async () => {
-    if(!currentUserId) return;
+    if (!currentUserId) return;
 
     let imageUrl, videoUrl;
 
@@ -41,11 +42,14 @@ const Upload:React.FC = () => {
 
     try {
       if (selectedThumbnail) {
-        imageUrl = await uploadFileBase64(selectedThumbnail, "images/") as string;
+        imageUrl = (await uploadFileBase64(
+          selectedThumbnail,
+          "images/"
+        )) as string;
       }
 
       if (videoFile) {
-        videoUrl = await uploadFile(videoFile, "videos/") as string;
+        videoUrl = (await uploadFile(videoFile, "videos/")) as string;
       }
 
       const video = await uploadVideo({
@@ -58,9 +62,10 @@ const Upload:React.FC = () => {
         userId: currentUserId,
       }).unwrap();
 
+      toast.success("Video uploaded successfully.");
       navigate(`/video/${video._id}`);
     } catch (error) {
-      console.log("Couldn't upload video.", error);
+      toast.error("Could not upload video.");
     } finally {
       setIsLoading(false);
     }
@@ -215,7 +220,7 @@ const Upload:React.FC = () => {
                 onChange={(event) => setTag(event.target.value)}
               />
               <button
-                className="btn btn-primary btn-square -ml-12 rounded-tl-none rounded-bl-none"
+                className="btn-primary btn-square btn -ml-12 rounded-tl-none rounded-bl-none"
                 onClick={addTag}
                 disabled={!tag}
               >
@@ -229,7 +234,7 @@ const Upload:React.FC = () => {
               <button
                 key={index}
                 onClick={() => removeTag(index)}
-                className="btn btn-sm"
+                className="btn-sm btn"
               >
                 {tag}
               </button>
@@ -281,7 +286,7 @@ const Upload:React.FC = () => {
 
       <div className="flex justify-end gap-2">
         <button
-          className={clsx("btn btn-primary", { loading: isLoading })}
+          className={clsx("btn-primary btn", { loading: isLoading })}
           onClick={handleUpload}
           disabled={
             !title ||

@@ -1,20 +1,20 @@
-import { useParams } from "react-router-dom";
-import Videos from "../../components/Videos";
-import { useGetUserQuery } from "./userApiSlice";
-import { useGetVideosByUserQuery } from "..//video/videoApiSlice";
-import { useSelector } from "react-redux";
-import Modal from "../modal/Modal";
-import EditUser from "./EditUser";
-import { selectCurrentUserId } from "./userSlice";
-import useModal from "../modal/useModal";
-import pluralize from "pluralize";
-import SubscribeButton from "../../components/SubscribeButton";
-import Avatar from "../../components/Avatar";
-import { useEffect, useState } from "react";
-import { Video } from "../../types/video";
 import clsx from "clsx";
 import { PencilSimple } from "phosphor-react";
+import pluralize from "pluralize";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import Avatar from "../../components/Avatar";
+import SubscribeButton from "../../components/SubscribeButton";
+import Videos from "../../components/Videos";
+import { Video } from "../../types/video";
 import { pluralizeAndAbbreviateNumber } from "../../util/number";
+import Modal from "../modal/Modal";
+import useModal from "../modal/useModal";
+import { useGetVideosByUserQuery } from "../video/videoApiSlice";
+import EditUser from "./EditUser";
+import { useGetUserQuery } from "./userApiSlice";
+import { selectCurrentUserId } from "./userSlice";
 
 type Filters = "latest" | "most viewed" | "top rated";
 
@@ -25,7 +25,7 @@ const User = () => {
   const currentUserId = useSelector(selectCurrentUserId);
 
   const [videos, setVideos] = useState<Video[]>([]);
-  const [likes, setLikes] = useState(0);
+  const [likes, setLikes] = useState<number>(0);
   const [selectedFilter, setSelectedFilter] = useState<Filters>("latest");
 
   const isChannelOwner = currentUserId === id;

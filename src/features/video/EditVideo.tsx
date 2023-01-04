@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { Plus } from "phosphor-react";
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { deleteFile } from "../../firebaseFunctions";
 import {
@@ -45,8 +46,10 @@ const EditVideo: React.FC<Props> = ({ handleModalClose }) => {
         id,
         inputs: { title, description, tags },
       }).unwrap();
+      toast.success("Video updated.");
       handleModalClose();
     } catch (error) {
+      toast.error("Could not update video.");
     } finally {
       setIsLoading(false);
     }
@@ -57,8 +60,11 @@ const EditVideo: React.FC<Props> = ({ handleModalClose }) => {
     try {
       await deleteFile(video!.videoUrl);
       await deleteVideo(id).unwrap();
+      toast.success("Video deleted.");
       navigate("/", { replace: true });
-    } catch (error) {}
+    } catch (error) {
+      toast.error("Could not delete video.");
+    }
   };
 
   const addTag = () => {

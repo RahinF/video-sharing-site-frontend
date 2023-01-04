@@ -1,14 +1,15 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { usePostCommentMutation } from "./commentsApiSlice";
-import { selectCurrentUserId } from "../user/userSlice";
 import clsx from "clsx";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { selectCurrentUserId } from "../user/userSlice";
+import { usePostCommentMutation } from "./commentsApiSlice";
 
 interface Props {
   videoId: string | undefined;
 }
 
-const NewComment = ({ videoId }: Props) => {
+const NewComment: React.FC<Props> = ({ videoId }) => {
   const [postComment] = usePostCommentMutation();
   const currentUserId = useSelector(selectCurrentUserId);
 
@@ -19,16 +20,20 @@ const NewComment = ({ videoId }: Props) => {
   const commentIsTooLong = newComment.length > commentMaxLength;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    try {
+      event.preventDefault();
+      await postComment({
+        userId: currentUserId,
+        videoId,
+        description: newComment,
+      }).unwrap();
 
-    await postComment({
-      userId: currentUserId,
-      videoId,
-      description: newComment,
-    });
-
-    setIsFocused(false);
-    setNewComment("");
+      setIsFocused(false);
+      setNewComment("");
+      toast.success("Comment posted.");
+    } catch (error) {
+      toast.error("Could not post comment.");
+    }
   };
 
   const handleRemoveFocus = () => {
@@ -58,7 +63,7 @@ const NewComment = ({ videoId }: Props) => {
           </span>
           <div className="flex gap-4">
             <button
-              className="btn btn-outline btn-primary"
+              className="btn-outline btn-primary btn"
               onClick={handleRemoveFocus}
             >
               Cancel
@@ -66,7 +71,7 @@ const NewComment = ({ videoId }: Props) => {
 
             <button
               disabled={!newComment || commentIsTooLong}
-              className="btn btn-primary"
+              className="btn-primary btn"
               type="submit"
             >
               Comment

@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import {
-  selectCurrentUserId,
-  selectCurrentUserSubscriptions,
-} from "../features/user/userSlice";
+import { toast } from "react-hot-toast";
+import { useAppSelector } from "../app/hooks";
 import {
   useSubscribeMutation,
   useUnsubscribeMutation,
 } from "../features/user/userApiSlice";
+import {
+  selectCurrentUserId,
+  selectCurrentUserSubscriptions,
+} from "../features/user/userSlice";
 
 interface Props {
   videoOwnerId: string | undefined;
@@ -15,29 +16,39 @@ interface Props {
 
 const SubscribeButton = ({ videoOwnerId }: Props) => {
   const [isSubscribed, setisSubscribed] = useState(false);
-  const currentUserId = useSelector(selectCurrentUserId);
-  const subscriptions = useSelector(selectCurrentUserSubscriptions);
+  const currentUserId = useAppSelector(selectCurrentUserId);
+  const subscriptions = useAppSelector(selectCurrentUserSubscriptions);
   const [subscribe] = useSubscribeMutation();
   const [unsubscribe] = useUnsubscribeMutation();
 
   useEffect(() => {
-    if (subscriptions) {
-      if (!videoOwnerId) return;
-      const result = subscriptions.includes(videoOwnerId);
-      setisSubscribed(result);
-    }
+    if (!videoOwnerId) return;
+
+    const result = subscriptions.includes(videoOwnerId);
+    
+    setisSubscribed(result);
   }, [subscriptions, videoOwnerId]);
 
   const handleSubscribe = async () => {
     if (isSubscribed) {
-      await unsubscribe({ currentUserId, videoOwnerId });
+      try {
+        await unsubscribe({ currentUserId, videoOwnerId }).unwrap();
+        toast.success("Removed from subscriptions.");
+      } catch (error) {
+        toast.error("Could not remove user from subscriptions.");
+      }
     } else {
-      await subscribe({ currentUserId, videoOwnerId });
+      try {
+        await subscribe({ currentUserId, videoOwnerId }).unwrap();
+        toast.success("Added to subscriptions.");
+      } catch (error) {
+        toast.error("Could not subscribe to user.");
+      }
     }
   };
 
   return (
-    <button onClick={handleSubscribe} className="btn btn-primary">
+    <button onClick={handleSubscribe} className="btn-primary btn">
       {isSubscribed ? "subscribed" : "subscribe"}
     </button>
   );

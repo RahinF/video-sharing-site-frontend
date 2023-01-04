@@ -5,7 +5,6 @@ const Card = () => {
       <div className="pt-2">
         <div className="flex flex-col gap-2">
           <div className="h-4 w-full rounded-lg bg-zinc-700" />
-          <div className="h-4 w-full rounded-lg bg-zinc-700" />
           <div className="h-4 w-1/2 rounded-lg bg-zinc-700" />
         </div>
       </div>
