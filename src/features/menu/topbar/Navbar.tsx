@@ -1,15 +1,12 @@
-import SearchBar from "./SearchBar";
-import { Link } from "react-router-dom";
-import useModal from "../modal/useModal";
-import Modal from "../modal/Modal";
-import Login from "../auth/Login";
-import Register from "../auth/Register";
-import { useLogoutMutation } from "../auth/authApiSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentUserId } from "../user/userSlice";
 import { List, UploadSimple, User } from "phosphor-react";
-import { selectMenuIsOpen, setMenuIsOpen } from "./menuSlice";
-import useWindowSize from "../../hooks/useWindowSize";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import SkipNavigationButton from "../../../components/skipNavigation/SkipNavigationButton";
+import useWindowSize from "../../../hooks/useWindowSize";
+import { useLogoutMutation } from "../../auth/authApiSlice";
+import { selectCurrentUserId } from "../../user/userSlice";
+import { selectMenuIsOpen, setMenuIsOpen } from "../menuSlice";
+import SearchBar from "./SearchBar";
 
 const Navbar: React.FC = () => {
   const [logout] = useLogoutMutation();
@@ -22,37 +19,6 @@ const Navbar: React.FC = () => {
   const isDesktop = width > 1280;
 
   const dispatch = useDispatch();
-
-  const {
-    isOpen: isLoginModalOpen,
-    openModal: openLoginModal,
-    closeModal: closeLoginModal,
-  } = useModal();
-
-  const {
-    isOpen: isRegisterModalOpen,
-    openModal: openRegisterModal,
-    closeModal: closeRegisterModal,
-  } = useModal();
-
-  const Modals = (
-    <>
-      <Modal
-        isOpen={isLoginModalOpen}
-        handleClose={closeLoginModal}
-        title="Login"
-      >
-        <Login handleModalClose={closeLoginModal} />
-      </Modal>
-      <Modal
-        isOpen={isRegisterModalOpen}
-        handleClose={closeRegisterModal}
-        title="Register"
-      >
-        <Register handleModalClose={closeRegisterModal} />
-      </Modal>
-    </>
-  );
 
   const loggedInActions = (
     <>
@@ -67,11 +33,11 @@ const Navbar: React.FC = () => {
 
   const notLoggedInActions = (
     <>
-      <li onClick={openLoginModal}>
-        <span>Login</span>
+      <li>
+        <Link to="/login">Login</Link>
       </li>
-      <li onClick={openRegisterModal}>
-        <span>Register</span>
+      <li>
+        <Link to="/register">Register</Link>
       </li>
     </>
   );
@@ -81,11 +47,10 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="navbar sticky top-0 z-10 bg-base-100">
+    <header className="navbar sticky top-0 z-10 bg-primary">
       <div className="navbar-start flex gap-2">
-
         {!isDesktop && (
-          <button className="btn btn-ghost btn-circle" onClick={toggleMenu}>
+          <button className="btn-ghost btn-circle btn" onClick={toggleMenu}>
             <List size={24} />
           </button>
         )}
@@ -95,6 +60,8 @@ const Navbar: React.FC = () => {
             Watch<span className="text-primary">TV</span>
           </h1>
         </Link>
+
+        <SkipNavigationButton />
       </div>
 
       <div className="navbar-end flex gap-2">
@@ -103,7 +70,7 @@ const Navbar: React.FC = () => {
             className="tooltip tooltip-bottom hover:tooltip-open"
             data-tip="Upload"
           >
-            <Link to="/upload" className="btn btn-ghost btn-circle">
+            <Link to="/upload" className="btn-ghost btn-circle btn">
               <UploadSimple size={24} />
             </Link>
           </span>
@@ -111,8 +78,8 @@ const Navbar: React.FC = () => {
 
         <SearchBar />
         {/*  */}
-        <div className="dropdown-end dropdown dropdown-hover">
-          <label tabIndex={0} className="btn btn-ghost btn-circle">
+        <div className="dropdown-hover dropdown-end dropdown">
+          <label tabIndex={0} className="btn-ghost btn-circle btn">
             <User size={24} />
           </label>
           <ul
@@ -122,7 +89,7 @@ const Navbar: React.FC = () => {
             {isLoggedIn ? loggedInActions : notLoggedInActions}
           </ul>
         </div>
-        {Modals}
+
         {/*  */}
       </div>
     </header>

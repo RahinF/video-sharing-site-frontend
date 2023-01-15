@@ -17,14 +17,16 @@ export const generateVideoThumbnails = async (
   numberOfThumbnails: number
 ) => {
   let thumbnails: string[] = [];
-  let fractions: number[] = [];
+
   return new Promise(async (resolve, reject) => {
     if (!file.type?.includes("video")) reject("not a valid video file");
     try {
       const duration = (await getVideoDuration(file)) as number;
-      for (let i = 0; i <= duration; i += duration / numberOfThumbnails) {
-        fractions.push(Math.floor(i));
-      }
+
+      const fractions: number[] = [...Array(numberOfThumbnails)].map((_, i) =>
+        Math.floor((duration / numberOfThumbnails) * i)
+      );
+
       const promiseArray = fractions.map((time) => {
         return getVideoThumbnail(file, time);
       });
@@ -54,14 +56,15 @@ const getVideoThumbnail = (file: File, videoTimeInSeconds: number) => {
 
     const snapImage = () => {
       const canvas = document.createElement("canvas");
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
+      canvas.width = video.videoWidth / 2;
+      canvas.height = video.videoHeight / 2;
       canvas
         .getContext("2d")!
         .drawImage(video, 0, 0, canvas.width, canvas.height);
       const image = canvas.toDataURL();
-   
+
       const success = image.length > 100000;
+
       if (success) {
         URL.revokeObjectURL(url);
         resolve(image);

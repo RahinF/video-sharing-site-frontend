@@ -1,35 +1,43 @@
-import { useEffect, useState } from "react";
-import { useLoginMutation } from "./authApiSlice";
-import { Error } from "../../types/error";
+import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
+import { FC, useEffect, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { z } from "zod";
+import Input from "../../components/Form/Input";
+import { Error } from "../../types/error";
+import { useLoginMutation } from "./authApiSlice";
 
-interface Props {
-  handleModalClose: () => void;
-}
+const schema = z.object({
+  email: z.string().min(1, { message: "Email is required." }).email({
+    message:
+      "Please provide an email in the correct format e.g. john.doe@gmail.com",
+  }),
+  password: z.string().min(1, { message: "Password is required." }),
+});
 
-const Login = ({ handleModalClose }: Props) => {
+type Form = z.infer<typeof schema>;
+
+const Login: FC = () => {
   const [login, { isLoading }] = useLoginMutation();
+  const navigate = useNavigate();
 
-  const [inputs, setInputs] = useState({
-    email: "",
-    password: "",
-  });
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitSuccessful },
+  } = useForm<Form>({ mode: "onBlur", resolver: zodResolver(schema) });
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputs((prev) => ({ ...prev, [event.target.name]: event.target.value }));
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
+  const onSubmit: SubmitHandler<Form> = async (data) => {
     try {
-      await login(inputs).unwrap();
-      setInputs({ email: "", password: "" });
-      handleModalClose();
+      await login(data).unwrap();
+      reset();
+      navigate(-1);
     } catch (error) {
-      let result = error as Error;
+      const result = error as Error;
       if (typeof result.data === "string") {
         setErrorMessage(result.data);
       }
@@ -37,52 +45,54 @@ const Login = ({ handleModalClose }: Props) => {
   };
 
   useEffect(() => {
-    setErrorMessage("");
-  }, [inputs]);
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
 
   return (
-    <form onSubmit={handleSubmit} className="m-auto max-w-xs">
-      <p className="text-center text-error">{errorMessage}</p>
+    <main className="grid min-h-screen place-items-center">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full max-w-xl rounded bg-primary-dark py-6 px-10"
+      >
+        <p className="text-center text-error">{errorMessage}</p>
 
-      <div className="grid gap-6">
-        <div>
-          <label className="label" htmlFor="email">
-            Email
-          </label>
-          <input
+        <h1 className="mb-6 text-4xl">Login</h1>
+        <div className="grid gap-6">
+          <Input
             id="email"
-            name="email"
+            label="Email"
             type="email"
-            className="input"
-            value={inputs.email}
-            onChange={handleChange}
+            {...register("email")}
+            error={errors.email}
+            required
           />
-        </div>
 
-        <div>
-          <label className="label" htmlFor="password">
-            Password
-          </label>
-          <input
+          <Input
             id="password"
-            name="password"
+            label="Password"
             type="password"
-            className="input"
-            value={inputs.password}
-            onChange={handleChange}
+            {...register("password")}
+            error={errors.password}
+            required
           />
         </div>
-      </div>
 
-      <div className="mt-8 grid justify-center">
-        <button
-          disabled={isLoading || !inputs.email || !inputs.password}
-          className={clsx("btn", { loading: isLoading })}
-        >
-          {isLoading ? "Loading..." : "Login"}
-        </button>
-      </div>
-    </form>
+        <div aria-hidden className="mt-8">
+          Fields marked with <span className="text-error">*</span> are required.
+        </div>
+
+        <div className="mt-8 grid justify-center">
+          <button
+            disabled={isLoading}
+            className={clsx("btn", { loading: isLoading })}
+          >
+            {isLoading ? "Loading..." : "Login"}
+          </button>
+        </div>
+      </form>
+    </main>
   );
 };
 

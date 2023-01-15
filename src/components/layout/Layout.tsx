@@ -1,21 +1,35 @@
+import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
-import Menu from "../../features/nav/Menu";
-import Navbar from "../../features/nav/Navbar";
+import { GlobalProvider } from "../../context/GlobalContext";
+import Sidebar from "../../features/menu/sidebar";
+import Navbar from "../../features/menu/topbar/Navbar";
+import NavigationSkipped from "../skipNavigation/NavigationSkipped";
+import Spinner from "../Spinner";
 
 const Layout = () => {
   return (
-    <div className="m-auto max-w-screen-2xl">
+    <GlobalProvider>
+    <div className="m-auto min-h-screen max-w-screen-2xl">
       <Toaster />
       <Navbar />
       <div className="flex">
-        <Menu />
-
+        <Sidebar />
+        <NavigationSkipped />
         <main className="w-full p-4">
-          <Outlet />
+          <Suspense
+            fallback={
+              <div className="grid min-h-screen w-full place-items-center">
+                <Spinner />
+              </div>
+            }
+          >
+            <Outlet />
+          </Suspense>
         </main>
       </div>
     </div>
+    </GlobalProvider>
   );
 };
 

@@ -10,10 +10,10 @@ const userApiSlice = apiSlice.injectEndpoints({
     updateUser: builder.mutation<
       User,
       {
-        id: string | undefined;
+        id: string;
         inputs: {
           name: string;
-          bio: string;
+          bio: string | undefined;
           image: string | undefined;
         };
       }

@@ -1,8 +1,8 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
-import { apiSlice } from "./api/apiSlice";
 import authReducer from "../features/auth/authSlice";
+import menuReducer from "../features/menu/menuSlice";
 import userReducer from "../features/user/userSlice";
-import menuReducer from "../features/nav/menuSlice";
+import { apiSlice } from "./api/apiSlice";
 
 export const store = configureStore({
   reducer: {
@@ -13,7 +13,7 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
-  devTools: false,
+  devTools: process.env.NODE_ENV === "development" ? true : false,
 });
 
 export type AppDispatch = typeof store.dispatch;

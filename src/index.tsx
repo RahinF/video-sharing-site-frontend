@@ -4,7 +4,7 @@ import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import App from "./app/App";
 import { store } from "./app/store";
-import "./index.css";
+import "./tailwind.css";
 
 if (process.env.NODE_ENV === "production") {
   disableReactDevTools();

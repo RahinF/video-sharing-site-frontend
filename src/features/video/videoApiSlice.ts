@@ -49,8 +49,8 @@ const videoApiSlice = apiSlice.injectEndpoints({
       title: string,
       description: string,
       duration: number,
-      imageUrl : string | undefined,
-      videoUrl: string| undefined,
+      imageUrl : string,
+      videoUrl: string,
       tags: string[],
       userId: string,
     }>({
