@@ -1,6 +1,7 @@
 import { List, UploadSimple, User } from "phosphor-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Dropdown from "../../../components/Dropdown";
 import SkipNavigationButton from "../../../components/skipNavigation/SkipNavigationButton";
 import useWindowSize from "../../../hooks/useWindowSize";
 import { useLogoutMutation } from "../../auth/authApiSlice";
@@ -22,23 +23,15 @@ const Navbar: React.FC = () => {
 
   const loggedInActions = (
     <>
-      <li>
-        <Link to={`/user/${currentUserId}`}>My Channel</Link>
-      </li>
-      <li onClick={() => logout()}>
-        <span>Logout</span>
-      </li>
+      <Link to={`/user/${currentUserId}`}>My Channel</Link>
+      <button onClick={() => logout()}>Logout</button>
     </>
   );
 
   const notLoggedInActions = (
     <>
-      <li>
-        <Link to="/login">Login</Link>
-      </li>
-      <li>
-        <Link to="/register">Register</Link>
-      </li>
+      <Link to="/login">Login</Link>
+      <Link to="/register">Register</Link>
     </>
   );
 
@@ -77,20 +70,10 @@ const Navbar: React.FC = () => {
         )}
 
         <SearchBar />
-        {/*  */}
-        <div className="dropdown-hover dropdown-end dropdown">
-          <label tabIndex={0} className="btn-ghost btn-circle btn">
-            <User size={24} />
-          </label>
-          <ul
-            tabIndex={0}
-            className="dropdown-content menu rounded-box w-40 bg-base-300 p-2"
-          >
-            {isLoggedIn ? loggedInActions : notLoggedInActions}
-          </ul>
-        </div>
 
-        {/*  */}
+        <Dropdown triggerIcon={User} ariaLabel="user actions">
+          {isLoggedIn ? loggedInActions : notLoggedInActions}
+        </Dropdown>
       </div>
     </header>
   );

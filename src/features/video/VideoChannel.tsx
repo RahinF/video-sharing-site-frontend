@@ -25,7 +25,7 @@ const VideoChannel = ({ userId }: Props) => {
   return (
     <div className="flex items-center justify-between py-4">
       <div className="flex items-center gap-4">
-        <Link to={`/user/${user?._id}`}>
+        <Link to={`/user/${user?._id}`} aria-label={`${user?.name} profile`}>
           <Avatar src={user?.image} alt={user?.name} />
         </Link>
         <div className="flex flex-col gap-1">

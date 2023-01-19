@@ -18,12 +18,17 @@ const Avatar = ({ src, alt, size }: Props) => {
           "h-16 w-16 ": !size || size === "md", // default
           "h-24 w-24": size === "lg",
           "h-32 w-32": size === "xl",
-          "bg-zinc-700 animate-pulse": !loaded,
-          "bg-base-300": !src
+          "animate-pulse bg-zinc-700": !loaded,
+          "bg-base-300": !src,
         })}
       >
         {src && (
-          <img src={src} alt={`${alt} avatar`} onLoad={() => setLoaded(true)} />
+          <img
+            src={src}
+            alt={`${alt} avatar`}
+            onLoad={() => setLoaded(true)}
+            aria-hidden
+          />
         )}
       </div>
     </div>

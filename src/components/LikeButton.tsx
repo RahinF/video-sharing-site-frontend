@@ -1,8 +1,8 @@
+import clsx from "clsx";
 import { Heart } from "phosphor-react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentUserId } from "../features/user/userSlice";
-import { useEffect, useState } from "react";
-import clsx from "clsx";
 import { abbreviateNumber } from "../util/number";
 
 interface Props {
@@ -27,7 +27,11 @@ const LikeButton = ({ likes, handleLike, handleUnlike }: Props) => {
 
   return (
     <div className="flex flex-col items-center gap-2">
-      <button onClick={handleOnClick} className="btn btn-ghost btn-circle">
+      <button
+        onClick={handleOnClick}
+        className="btn-ghost btn-circle btn"
+        aria-label="like video"
+      >
         <Heart
           size={24}
           weight={isLiked ? "fill" : "regular"}

@@ -12,7 +12,7 @@ const Subscription = ({ userId, closeMenu }: Props) => {
   return (
     <li onClick={closeMenu}>
       <NavLink to={`user/${userId}`} className="flex items-center">
-        <Avatar src={user?.image} size="sm" alt={user?.name} />
+        <Avatar src={user?.image} size="sm" alt={user?.name}  />
         <span>{user?.name}</span>
       </NavLink>
     </li>

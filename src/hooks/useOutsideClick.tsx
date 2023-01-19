@@ -1,22 +1,20 @@
-import { useRef, useEffect } from "react";
+import { FC, ReactNode, useEffect, useRef } from "react";
 
 /**
  * Hook that alerts clicks outside of the passed ref
  */
 interface Props {
   onClick: () => void;
-  children: React.ReactNode;
-  className: string;
+  children: ReactNode;
+  className?: string;
 }
 
-const useOutsideClick = (
-  ref: React.RefObject<HTMLDivElement>,
-  onClick: () => void
-) => {
+const OutSideClick: FC<Props> = ({ onClick, children, className }) => {
+  const ref = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    document.onmousedown = (event) => {
-      const target = event.target as HTMLDivElement;
-      if (ref.current && !ref.current.contains(target)) {
+    document.onmousedown = ({ target }) => {
+      if (ref.current && !ref.current.contains(target as HTMLDivElement)) {
         onClick();
       }
     };
@@ -24,15 +22,10 @@ const useOutsideClick = (
       document.onmousedown = null;
     };
   }, [ref, onClick]);
-};
-
-const OutSideClick = (props: Props) => {
-  const ref = useRef<HTMLDivElement>(null);
-  useOutsideClick(ref, props.onClick);
 
   return (
-    <div ref={ref} className={props.className}>
-      {props.children}
+    <div ref={ref} className={className}>
+      {children}
     </div>
   );
 };

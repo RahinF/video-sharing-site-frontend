@@ -152,6 +152,7 @@ const EditVideo: React.FC<Props> = ({ handleModalClose }) => {
           className="btn-outline btn-error btn"
           onClick={handleDelete}
           type="button"
+          aria-label="delete video"
         >
           Delete
         </button>
@@ -160,6 +161,7 @@ const EditVideo: React.FC<Props> = ({ handleModalClose }) => {
           type="submit"
           disabled={isLoading}
           className={clsx("btn-primary btn", { loading: isLoading })}
+          aria-label="update video details"
         >
           {isLoading ? "Updating..." : "Update"}
         </button>

@@ -29,7 +29,7 @@ const VideoInfoTab = ({ video }: Props) => {
           <h3 className="mb-2 font-medium">Tags</h3>
           <div className="flex flex-wrap gap-2">
             {video.tags.map((tag, index) => (
-              <Link to={`/tags?tags=${tag}`} className="btn btn-sm" key={index}>
+              <Link to={`/tags?tags=${tag}`} className="btn btn-sm" key={index} aria-label={`${tag} tag`}>
                 {tag}
               </Link>
             ))}

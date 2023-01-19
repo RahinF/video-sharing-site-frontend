@@ -37,13 +37,13 @@ const Recommendation = ({ tags, currentVideoId }: Props) => {
   }, [tagVideos, tagSuccess, currentVideoId, trendingVideos, trendingSuccess]);
 
   return (
-    <>
+    <section>
       <h1 className="mb-4 text-2xl">
         <span className="text-primary">Related </span>Videos
       </h1>
 
       <Videos videos={videos} isLoading={tagLoading || trendingLoading} />
-    </>
+    </section>
   );
 };
 

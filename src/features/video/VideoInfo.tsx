@@ -51,6 +51,7 @@ const VideoInfo: React.FC<Props> = ({ video }) => {
         return (
           <div className="flex flex-col items-center gap-2" key={index}>
             <button
+            aria-label={`${tab.text} tab`}
               className={clsx({
                 "btn-circle btn": true,
                 [isTabActive ? "btn-primary" : "btn-ghost"]: true,
