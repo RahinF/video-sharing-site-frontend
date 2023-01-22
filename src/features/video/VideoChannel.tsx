@@ -1,14 +1,14 @@
-import Avatar from "../../components/Avatar";
-import SubscribeButton from "../../components/SubscribeButton";
-import { useGetUserQuery } from "../user/userApiSlice";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectCurrentUserId } from "../user/userSlice";
-import { pluralizeAndAbbreviateNumber } from "../../util/number";
-import useModal from "../modal/useModal";
-import Modal from "../modal/Modal";
-import EditVideo from "./EditVideo";
 import { PencilSimple } from "phosphor-react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import Avatar from "../../components/Avatar/Avatar";
+import SubscribeButton from "../../components/SubscribeButton";
+import { pluralizeAndAbbreviateNumber } from "../../util/number";
+import Modal from "../modal/Modal";
+import useModal from "../modal/useModal";
+import { useGetUserQuery } from "../user/userApiSlice";
+import { selectCurrentUserId } from "../user/userSlice";
+import EditVideo from "./EditVideo";
 
 interface Props {
   userId: string;

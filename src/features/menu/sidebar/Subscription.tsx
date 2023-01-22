@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import Avatar from "../../../components/Avatar";
+import Avatar from "../../../components/Avatar/Avatar";
 import { useGetUserQuery } from "../../user/userApiSlice";
 
 interface Props {
