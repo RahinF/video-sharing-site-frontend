@@ -1,6 +1,6 @@
 import { List, UploadSimple, User } from "phosphor-react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import Dropdown from "../../../components/Dropdown";
 import SkipNavigationButton from "../../../components/skipNavigation/SkipNavigationButton";
 import useWindowSize from "../../../hooks/useWindowSize";
@@ -11,15 +11,15 @@ import SearchBar from "./SearchBar";
 
 const Navbar: React.FC = () => {
   const [logout] = useLogoutMutation();
-  const currentUserId = useSelector(selectCurrentUserId);
-  const isLoggedIn = currentUserId;
+  const currentUserId = useAppSelector(selectCurrentUserId);
+  const menuIsOpen = useAppSelector(selectMenuIsOpen);
 
-  const menuIsOpen = useSelector(selectMenuIsOpen);
+  const isLoggedIn = currentUserId;
 
   const width = useWindowSize();
   const isDesktop = width > 1280;
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const loggedInActions = (
     <>
@@ -40,7 +40,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="navbar sticky top-0 z-10 bg-primary">
+    <header className="navbar sticky top-0 z-[2] bg-primary">
       <div className="navbar-start flex gap-2">
         {!isDesktop && (
           <button className="btn-ghost btn-circle btn" onClick={toggleMenu}>
@@ -48,10 +48,10 @@ const Navbar: React.FC = () => {
           </button>
         )}
 
-        <Link to="/">
-          <h1 className="select-none text-xl font-black uppercase">
+        <Link to="/" aria-label="WatchTV Home">
+          <div className="select-none text-xl font-black uppercase">
             Watch<span className="text-primary">TV</span>
-          </h1>
+          </div>
         </Link>
 
         <SkipNavigationButton />

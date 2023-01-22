@@ -1,8 +1,8 @@
 import clsx from "clsx";
 import { BookOpen, ChatTeardropDots } from "phosphor-react";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { toast } from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../app/hooks";
 import LikeButton from "../../components/LikeButton";
 import { Video } from "../../types/video";
 import Comments from "../comments/Comments";
@@ -14,8 +14,8 @@ interface Props {
   video: Video;
 }
 
-const VideoInfo: React.FC<Props> = ({ video }) => {
-  const currentUserId = useSelector(selectCurrentUserId);
+const VideoInfo: FC<Props> = ({ video }) => {
+  const currentUserId = useAppSelector(selectCurrentUserId);
 
   const [likeVideo] = useLikeVideoMutation();
   const [unlikeVideo] = useUnlikeVideoMutation();
@@ -26,42 +26,41 @@ const VideoInfo: React.FC<Props> = ({ video }) => {
   ];
   const [activeTab, setActiveTab] = useState("Info");
 
-  const handleLike = async () => {
+  async function handleLike() {
     try {
       await likeVideo({ currentUserId, videoId: video._id }).unwrap();
       toast.success("Video liked.");
     } catch (error) {
       toast.error("Could not like video.");
     }
-  };
+  }
 
-  const handleUnlike = async () => {
+  async function handleUnlike() {
     try {
       await unlikeVideo({ currentUserId, videoId: video._id }).unwrap();
       toast.success("Video disliked.");
     } catch (error) {
       toast.error("Could not dislike video.");
     }
-  };
+  }
 
   const Tabs = (
     <>
       {tabs.map((tab, index) => {
         const isTabActive = activeTab === tab.text;
         return (
-          <div className="flex flex-col items-center gap-2" key={index}>
-            <button
+          <button
+            key={index}
             aria-label={`${tab.text} tab`}
-              className={clsx({
-                "btn-circle btn": true,
-                [isTabActive ? "btn-primary" : "btn-ghost"]: true,
-              })}
-              onClick={() => setActiveTab(tab.text)}
-            >
-              <tab.icon size={24} weight={isTabActive ? "fill" : "regular"} />
-            </button>
+            className={clsx({
+              "btn gap-2": true,
+              [isTabActive ? "btn-primary" : "btn-ghost"]: true,
+            })}
+            onClick={() => setActiveTab(tab.text)}
+          >
+            <tab.icon size={24} weight={isTabActive ? "fill" : "regular"} />
             <span className="text-sm">{tab.text}</span>
-          </div>
+          </button>
         );
       })}
     </>

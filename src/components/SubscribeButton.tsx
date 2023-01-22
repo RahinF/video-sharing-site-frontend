@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useAppSelector } from "../app/hooks";
 import {
@@ -9,12 +9,13 @@ import {
   selectCurrentUserId,
   selectCurrentUserSubscriptions,
 } from "../features/user/userSlice";
+import User from "../types/user";
 
 interface Props {
-  videoOwnerId: string | undefined;
+  videoOwner: User | undefined;
 }
 
-const SubscribeButton = ({ videoOwnerId }: Props) => {
+const SubscribeButton: FC<Props> = ({ videoOwner }) => {
   const [isSubscribed, setisSubscribed] = useState(false);
   const currentUserId = useAppSelector(selectCurrentUserId);
   const subscriptions = useAppSelector(selectCurrentUserSubscriptions);
@@ -22,33 +23,54 @@ const SubscribeButton = ({ videoOwnerId }: Props) => {
   const [unsubscribe] = useUnsubscribeMutation();
 
   useEffect(() => {
-    if (!videoOwnerId) return;
+    if (!videoOwner) return;
 
-    const result = subscriptions.includes(videoOwnerId);
-    
+    const result = subscriptions.includes(videoOwner._id);
+
     setisSubscribed(result);
-  }, [subscriptions, videoOwnerId]);
+  }, [subscriptions, videoOwner]);
+
+  async function subscribeToUser() {
+    if (!videoOwner) return;
+
+    try {
+      await subscribe({
+        currentUserId,
+        videoOwnerId: videoOwner._id,
+      }).unwrap();
+      toast.success("Added to subscriptions.");
+    } catch (error) {
+      toast.error("Could not subscribe to user.");
+    }
+  }
+  async function unsubscribeFromUser() {
+    if (!videoOwner) return;
+
+    try {
+      await unsubscribe({
+        currentUserId,
+        videoOwnerId: videoOwner._id,
+      }).unwrap();
+      toast.success("Removed from subscriptions.");
+    } catch (error) {
+      toast.error("Could not remove user from subscriptions.");
+    }
+  }
 
   const handleSubscribe = async () => {
-    if (isSubscribed) {
-      try {
-        await unsubscribe({ currentUserId, videoOwnerId }).unwrap();
-        toast.success("Removed from subscriptions.");
-      } catch (error) {
-        toast.error("Could not remove user from subscriptions.");
-      }
-    } else {
-      try {
-        await subscribe({ currentUserId, videoOwnerId }).unwrap();
-        toast.success("Added to subscriptions.");
-      } catch (error) {
-        toast.error("Could not subscribe to user.");
-      }
-    }
+    isSubscribed ? await unsubscribeFromUser() : await subscribeToUser();
   };
 
   return (
-    <button onClick={handleSubscribe} className="btn-primary btn">
+    <button
+      onClick={handleSubscribe}
+      className="btn-primary btn"
+      aria-label={
+        isSubscribed
+          ? `unsubscribe from ${videoOwner?.name}`
+          : `subscribe to ${videoOwner?.name}`
+      }
+    >
       {isSubscribed ? "subscribed" : "subscribe"}
     </button>
   );

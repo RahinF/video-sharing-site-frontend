@@ -1,9 +1,10 @@
 import clsx from "clsx";
 import { PencilSimple } from "phosphor-react";
 import pluralize from "pluralize";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { z } from "zod";
+import { useAppSelector } from "../../app/hooks";
 import Avatar from "../../components/Avatar";
 import SubscribeButton from "../../components/SubscribeButton";
 import Videos from "../../components/Videos";
@@ -16,13 +17,14 @@ import EditUser from "./EditUser";
 import { useGetUserQuery } from "./userApiSlice";
 import { selectCurrentUserId } from "./userSlice";
 
-type Filters = "latest" | "most viewed" | "top rated";
+const filters = z.enum(["latest", "most viewed", "top rated"]);
+type Filters = z.infer<typeof filters>;
 
-const User = () => {
+const User: FC = () => {
   const { id } = useParams();
   const { data: user, isLoading } = useGetUserQuery(id);
   const { data, isSuccess } = useGetVideosByUserQuery(id);
-  const currentUserId = useSelector(selectCurrentUserId);
+  const currentUserId = useAppSelector(selectCurrentUserId);
 
   const [videos, setVideos] = useState<Video[]>([]);
   const [likes, setLikes] = useState<number>(0);
@@ -32,8 +34,6 @@ const User = () => {
   const isLoggedIn = currentUserId;
 
   const { isOpen, openModal, closeModal } = useModal();
-
-  const filters: Filters[] = ["latest", "most viewed", "top rated"];
 
   useEffect(() => {
     if (isSuccess) {
@@ -88,7 +88,7 @@ const User = () => {
                   Edit User
                 </button>
               ) : (
-                isLoggedIn && <SubscribeButton videoOwnerId={user?._id} />
+                isLoggedIn && <SubscribeButton videoOwner={user} />
               )}
             </div>
           </div>
@@ -119,14 +119,16 @@ const User = () => {
 
       <div className="my-6 flex flex-col-reverse items-center justify-between gap-4 md:flex-row">
         <h1 className="text-2xl">
-          <span className="capitalize text-primary">{selectedFilter} </span>
+          <span className="capitalize text-primary">{selectedFilter}&#32;</span>
           <span>{pluralize("video", videos.length)}</span>
         </h1>
 
         <div className="btn-group">
-          {filters.map((filter) => (
+          {filters.options.map((filter) => (
             <button
               key={filter}
+              aria-label={`filter videos by ${filter}`}
+              type="button"
               className={clsx({
                 "btn btn-sm": true,
                 "btn-primary ": selectedFilter === filter,

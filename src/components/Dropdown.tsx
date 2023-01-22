@@ -88,7 +88,7 @@ const Dropdown: FC<Props> = ({ children, as, triggerIcon, ariaLabel }) => {
         <button
           type="button"
           onClick={toggleDropdown}
-          className="btn-primary btn relative z-[2]"
+          className="btn-ghost btn-circle btn relative z-[2]"
           aria-expanded={isOpen}
           aria-label={`${ariaLabel} dropdown menu`}
         >

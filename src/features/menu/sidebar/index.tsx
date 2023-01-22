@@ -47,7 +47,7 @@ const Sidebar = () => {
     return (
       <>
         <div
-          className={clsx("fixed top-0 z-[1] h-screen w-screen bg-black/50", {
+          className={clsx("fixed top-0 z-[2] h-screen w-screen bg-black/50", {
             [isMobileAndMenuOpen ? "block" : "hidden"]: true,
           })}
           onClick={closeMenu}
@@ -55,7 +55,7 @@ const Sidebar = () => {
 
         <OutSideClick
           onClick={closeMenu}
-          className={clsx("z-[1] w-56 shrink-0 bg-primary", {
+          className={clsx("z-[2] w-56 shrink-0 bg-primary", {
             "fixed bottom-0 top-0": isMobileAndMenuOpen,
           })}
         >

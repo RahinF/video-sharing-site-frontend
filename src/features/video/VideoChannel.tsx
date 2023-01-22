@@ -44,7 +44,7 @@ const VideoChannel = ({ userId }: Props) => {
           Edit Video
         </button>
       ) : (
-        isLoggedIn && <SubscribeButton videoOwnerId={user?._id} />
+        isLoggedIn && <SubscribeButton videoOwner={user} />
       )}
 
       <>

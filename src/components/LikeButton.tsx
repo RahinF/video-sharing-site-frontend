@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { Heart } from "phosphor-react";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { FC, useEffect, useState } from "react";
+import { useAppSelector } from "../app/hooks";
 import { selectCurrentUserId } from "../features/user/userSlice";
 import { abbreviateNumber } from "../util/number";
 
@@ -11,8 +11,8 @@ interface Props {
   handleUnlike: () => void;
 }
 
-const LikeButton = ({ likes, handleLike, handleUnlike }: Props) => {
-  const currentUserId = useSelector(selectCurrentUserId);
+const LikeButton: FC<Props> = ({ likes, handleLike, handleUnlike }) => {
+  const currentUserId = useAppSelector(selectCurrentUserId);
   const isLoggedIn = currentUserId;
   const [isLiked, setIsLiked] = useState(false);
 
@@ -26,10 +26,10 @@ const LikeButton = ({ likes, handleLike, handleUnlike }: Props) => {
   }, [likes, currentUserId]);
 
   return (
-    <div className="flex flex-col items-center gap-2">
+    <div className="flex items-center">
       <button
         onClick={handleOnClick}
-        className="btn-ghost btn-circle btn"
+        className="btn btn-ghost btn-circle"
         aria-label="like video"
       >
         <Heart

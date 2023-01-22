@@ -1,7 +1,10 @@
-import clsx from "clsx";
-import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FC, useCallback, useEffect, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { z } from "zod";
+import { useAppSelector } from "../../app/hooks";
+import TextArea from "../../components/Form/TextArea";
 import { selectCurrentUserId } from "../user/userSlice";
 import { usePostCommentMutation } from "./commentsApiSlice";
 
@@ -9,69 +12,90 @@ interface Props {
   videoId: string | undefined;
 }
 
-const NewComment: React.FC<Props> = ({ videoId }) => {
+const COMMENT_MAX_LENGTH: number = 250;
+
+const schema = z.object({
+  comment: z
+    .string()
+    .min(1, { message: "Comment cannnot be empty." })
+    .max(COMMENT_MAX_LENGTH, {
+      message: `Comment cannot be more than ${COMMENT_MAX_LENGTH} characters.`,
+    }),
+});
+
+type Form = z.infer<typeof schema>;
+
+const NewComment: FC<Props> = ({ videoId }) => {
   const [postComment] = usePostCommentMutation();
-  const currentUserId = useSelector(selectCurrentUserId);
+  const currentUserId = useAppSelector(selectCurrentUserId);
 
-  const [newComment, setNewComment] = useState("");
-  const [isFocused, setIsFocused] = useState(false);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
 
-  const commentMaxLength = 250;
-  const commentIsTooLong = newComment.length > commentMaxLength;
+  const {
+    register,
+    handleSubmit,
+    resetField,
+    reset,
+    getValues,
+    setValue,
+    formState: { errors, isSubmitSuccessful },
+  } = useForm<Form>({
+    mode: "onChange",
+    resolver: zodResolver(schema),
+  });
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit: SubmitHandler<Form> = async (data) => {
     try {
-      event.preventDefault();
       await postComment({
         userId: currentUserId,
         videoId,
-        description: newComment,
+        description: data.comment,
       }).unwrap();
 
-      setIsFocused(false);
-      setNewComment("");
       toast.success("Comment posted.");
     } catch (error) {
       toast.error("Could not post comment.");
     }
   };
 
-  const handleRemoveFocus = () => {
+  const handleRemoveFocus = useCallback(() => {
     setIsFocused(false);
-    setNewComment("");
-  };
+    resetField("comment");
+  }, [reset]);
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      handleRemoveFocus();
+    }
+  }, [isSubmitSuccessful, handleRemoveFocus]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <textarea
-        className={clsx("textarea", {
-          "h-8": !isFocused,
-          "h-32": isFocused,
-          "textarea-error": commentIsTooLong,
-        })}
-        aria-label="Add Comment"
-        placeholder="Add a comment..."
-        value={newComment}
-        onChange={(event) => setNewComment(event.target.value)}
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="rounded-lg bg-primary-dark px-4 py-6"
+    >
+      <TextArea
+        id="comment"
+        label="Add comment"
+        rows={isFocused ? 4 : 1}
+        {...register("comment")}
+        error={errors.comment}
+        maxLength={COMMENT_MAX_LENGTH}
         onFocus={() => setIsFocused(true)}
       />
 
       {isFocused && (
         <div className="mt-4 flex justify-between">
-          <span className={clsx("text-sm", { "text-error": commentIsTooLong })}>
-            {newComment.length}/{commentMaxLength}
-          </span>
           <div className="flex gap-4">
             <button
-              className="btn-outline btn-primary btn"
+              className="btn-outline btn btn-primary"
               onClick={handleRemoveFocus}
             >
               Cancel
             </button>
 
             <button
-              disabled={!newComment || commentIsTooLong}
-              className="btn-primary btn"
+              className="btn btn-primary"
               type="submit"
             >
               Comment

@@ -3,6 +3,7 @@ import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Avatar from "../../components/Avatar";
+import Dropdown from "../../components/Dropdown";
 import LikeButton from "../../components/LikeButton";
 import { Comment as CommentType } from "../../types/comment";
 import { timeAgo } from "../../util/date";
@@ -62,29 +63,22 @@ const Comment = ({ comment }: Props) => {
         <p className="whitespace-pre-line break-all text-sm">
           {comment.description}
         </p>
+        <div>
+          <LikeButton
+            likes={comment.likes}
+            handleLike={handleLike}
+            handleUnlike={handleUnlike}
+          />
+        </div>
       </div>
 
       <div className="flex gap-2 justify-self-end">
-        <LikeButton
-          likes={comment.likes}
-          handleLike={handleLike}
-          handleUnlike={handleUnlike}
-        />
-
         {isCommentOwner && (
-          <div className="dropdown-end dropdown">
-            <label tabIndex={0} className="btn-ghost btn-circle btn">
-              <DotsThreeVertical size={24} />
-            </label>
-            <ul
-              tabIndex={0}
-              className="dropdown-content menu rounded-box bg-base-300 p-2"
-            >
-              <li onClick={handleDelete}>
-                <span>Delete</span>
-              </li>
-            </ul>
-          </div>
+          <Dropdown triggerIcon={DotsThreeVertical} ariaLabel="comment options">
+            <button type="button" onClick={handleDelete}>
+              Delete
+            </button>
+          </Dropdown>
         )}
       </div>
     </div>
