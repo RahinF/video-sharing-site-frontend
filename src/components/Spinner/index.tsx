@@ -11,7 +11,7 @@ const Spinner: FC = () => {
   const MotionSpinner = motion(CircleDashed);
 
   return (
-    <div className="grid w-full place-items-center gap-2">
+    <div className="grid w-full place-items-center gap-2" role="presentation">
       <MotionSpinner size={48} animate={animate} />
       <span className="text-sm">Loading...</span>
     </div>
