@@ -1,10 +1,10 @@
 import humanizeDuration from "humanize-duration";
 import { Link } from "react-router-dom";
-import { useGetUserQuery } from "../features/user/userApiSlice";
-import { Video } from "../types/video";
-import { timeAgo, timeAgoOrDate } from "../util/date";
-import { pluralizeAndAbbreviateNumber } from "../util/number";
-import { convertDurationToTime } from "../util/time";
+import { useGetUserQuery } from "../../features/user/userApiSlice";
+import { Video } from "../../types/video";
+import { timeAgo, timeAgoOrDate } from "../../util/date";
+import { pluralizeAndAbbreviateNumber } from "../../util/number";
+import { convertDurationToTime } from "../../util/time";
 import Image from "./Image";
 
 interface Props {

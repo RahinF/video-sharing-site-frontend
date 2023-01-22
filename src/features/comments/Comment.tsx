@@ -2,7 +2,7 @@ import { DotsThreeVertical } from "phosphor-react";
 import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Avatar from "../../components/Avatar/Avatar";
+import Avatar from "../../components/Avatar";
 import Dropdown from "../../components/Dropdown";
 import LikeButton from "../../components/LikeButton";
 import { Comment as CommentType } from "../../types/comment";

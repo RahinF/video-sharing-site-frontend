@@ -1,7 +1,7 @@
 import { PencilSimple } from "phosphor-react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Avatar from "../../components/Avatar/Avatar";
+import Avatar from "../../components/Avatar";
 import SubscribeButton from "../../components/SubscribeButton";
 import { pluralizeAndAbbreviateNumber } from "../../util/number";
 import Modal from "../modal/Modal";

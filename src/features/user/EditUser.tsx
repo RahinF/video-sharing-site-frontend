@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { z } from "zod";
-import Avatar from "../../components/Avatar/Avatar";
+import Avatar from "../../components/Avatar";
 import Dropzone from "../../components/Form/Dropzone";
 import Error from "../../components/Form/Error";
 import Input from "../../components/Form/Input";

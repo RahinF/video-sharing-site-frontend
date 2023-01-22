@@ -1,5 +1,5 @@
-import Card from "./Card";
 import { Video } from "../types/video";
+import Card from "./Card/Card";
 import Skeleton from "./skeletons/Skeleton";
 
 interface Props {

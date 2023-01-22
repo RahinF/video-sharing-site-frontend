@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import Avatar from "./Avatar";
+import Avatar from ".";
 
 test("if avatar displays if image is provided", async () => {
   render(<Avatar src="url" />);

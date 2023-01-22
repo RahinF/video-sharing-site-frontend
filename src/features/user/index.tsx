@@ -5,7 +5,7 @@ import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { z } from "zod";
 import { useAppSelector } from "../../app/hooks";
-import Avatar from "../../components/Avatar/Avatar";
+import Avatar from "../../components/Avatar";
 import SubscribeButton from "../../components/SubscribeButton";
 import Videos from "../../components/Videos";
 import { Video } from "../../types/video";
