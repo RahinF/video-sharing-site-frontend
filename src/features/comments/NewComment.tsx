@@ -35,9 +35,6 @@ const NewComment: FC<Props> = ({ videoId }) => {
     register,
     handleSubmit,
     resetField,
-    reset,
-    getValues,
-    setValue,
     formState: { errors, isSubmitSuccessful },
   } = useForm<Form>({
     mode: "onChange",
@@ -61,7 +58,7 @@ const NewComment: FC<Props> = ({ videoId }) => {
   const handleRemoveFocus = useCallback(() => {
     setIsFocused(false);
     resetField("comment");
-  }, [reset]);
+  }, [resetField]);
 
   useEffect(() => {
     if (isSubmitSuccessful) {

@@ -14,12 +14,9 @@ import TextArea from "../../../components/Form/TextArea";
 import { uploadFile, uploadFileBase64 } from "../../../firebaseFunctions";
 import trimFileExtFromName from "../../../util/trimFileExtFromName";
 import { selectCurrentUserId } from "../../user/userSlice";
-import {
-  generateVideoThumbnails,
-  getVideoDuration,
-} from "./generateThumbnail";
 import Tags from "../Tags";
 import { useUploadVideoMutation } from "../videoApiSlice";
+import { generateVideoThumbnails, getVideoDuration } from "./generateThumbnail";
 import Thumbnails from "./Thumbnails";
 
 const TITLE_MAX_LENGTH: number = 100;

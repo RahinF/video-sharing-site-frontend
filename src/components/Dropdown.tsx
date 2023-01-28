@@ -4,7 +4,6 @@ import { IconProps } from "phosphor-react";
 import {
   Children,
   cloneElement,
-  ElementType,
   FC,
   ForwardRefExoticComponent,
   Fragment,
@@ -17,7 +16,6 @@ import {
 
 interface Props {
   children: ReactNode;
-  as?: ElementType;
   triggerIcon: ForwardRefExoticComponent<
     IconProps & RefAttributes<SVGSVGElement>
   >;
@@ -36,8 +34,7 @@ const containerVariants: Variants = {
   },
 };
 
-const Dropdown: FC<Props> = ({ children, as, triggerIcon, ariaLabel }) => {
-  const Component = as || "div";
+const Dropdown: FC<Props> = ({ children, triggerIcon, ariaLabel }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const Icon = triggerIcon;

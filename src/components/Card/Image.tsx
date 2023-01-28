@@ -22,7 +22,6 @@ const Image: FC<Props> = ({ src, alt }) => {
       })}
     >
       <motion.img
-        data-testid="image"
         src={src}
         alt={alt}
         initial="initial"

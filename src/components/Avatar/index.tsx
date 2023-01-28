@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { motion, Variants } from "framer-motion";
 import { FC, useState } from "react";
 import { z } from "zod";
 
@@ -10,6 +11,11 @@ interface Props {
   alt?: string;
   size?: Sizes;
 }
+
+const variants: Variants = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+};
 
 const Avatar: FC<Props> = ({ src, alt, size }) => {
   const [loaded, setLoaded] = useState(false);
@@ -25,16 +31,16 @@ const Avatar: FC<Props> = ({ src, alt, size }) => {
         "bg-primary-dark": !src,
       })}
     >
-      {src && (
-        <img
-          data-testid="avatar"
-          className="h-full w-full object-cover"
-          src={src}
-          alt={`${alt} avatar`}
-          onLoad={() => setLoaded(true)}
-          aria-hidden
-        />
-      )}
+      <motion.img
+        src={src}
+        alt={alt}
+        initial="initial"
+        animate={loaded && "animate"}
+        variants={variants}
+        className="h-full w-full object-cover"
+        onLoad={() => setLoaded(true)}
+        aria-hidden
+      />
     </div>
   );
 };

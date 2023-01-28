@@ -1,4 +1,4 @@
-const trimFileExtFromName = (string: string) => {
+const trimFileExtFromName = (string: string): string => {
   return string.replace(/\.[^/.]+$/, "");
 };
 

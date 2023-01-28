@@ -1,17 +1,18 @@
 import humanizeDuration from "humanize-duration";
+import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useGetUserQuery } from "../../features/user/userApiSlice";
 import { Video } from "../../types/video";
+import convertSecondsToTimeFormat from "../../util/convertSecondsToTimeFormat";
 import { timeAgo, timeAgoOrDate } from "../../util/date";
 import { pluralizeAndAbbreviateNumber } from "../../util/number";
-import { convertDurationToTime } from "../../util/time";
 import Image from "./Image";
 
 interface Props {
   video: Video;
 }
 
-const Card: React.FC<Props> = ({ video }) => {
+const Card: FC<Props> = ({ video }) => {
   const { data: user } = useGetUserQuery(video.userId);
 
   const readableDuration = humanizeDuration(video.duration * 1000, {
@@ -36,7 +37,7 @@ const Card: React.FC<Props> = ({ video }) => {
         <Image src={video.imageUrl} alt={video.title} />
 
         <div className="absolute bottom-2 right-2 rounded-lg bg-black/75 p-1 text-xs">
-          {convertDurationToTime(video.duration)}
+          {convertSecondsToTimeFormat(video.duration)}
         </div>
       </div>
 
