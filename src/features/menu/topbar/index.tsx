@@ -1,7 +1,7 @@
 import { List, UploadSimple, User } from "phosphor-react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import Dropdown from "../../../components/Dropdown";
+import Dropdown from "../../../components/Dropdown/Dropdown";
 import SkipNavigationButton from "../../../components/skipNavigation/SkipNavigationButton";
 import useWindowSize from "../../../hooks/useWindowSize";
 import { useLogoutMutation } from "../../auth/authApiSlice";

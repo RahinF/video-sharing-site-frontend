@@ -8,6 +8,7 @@ import {
   ForwardRefExoticComponent,
   Fragment,
   isValidElement,
+  KeyboardEvent,
   ReactElement,
   ReactNode,
   RefAttributes,
@@ -48,13 +49,17 @@ const Dropdown: FC<Props> = ({ children, triggerIcon, ariaLabel }) => {
   }
 
   const dropdownCaret = (
-    <div className="absolute top-14 right-2 z-[2] w-3 overflow-hidden">
+    <div
+      data-testid="caret"
+      className="absolute top-14 right-2 z-[2] w-3 overflow-hidden"
+    >
       <div className="h-2 w-2 origin-bottom-left rotate-45 transform bg-primary-dark" />
     </div>
   );
 
   const dropdownBackdrop = (
     <div
+      data-testid="backdrop"
       className="fixed top-0 left-0 z-[1] h-screen w-screen"
       onClick={closeDropdown}
     />
@@ -79,9 +84,15 @@ const Dropdown: FC<Props> = ({ children, triggerIcon, ariaLabel }) => {
     });
   }
 
+  function handleEscapeKeyPress(event: KeyboardEvent<HTMLDivElement>) {
+    if (event.code === "Escape") {
+      closeDropdown();
+    }
+  }
+
   return (
     <FocusTrap active={isOpen}>
-      <div className="relative">
+      <div className="relative" onKeyDown={handleEscapeKeyPress}>
         <button
           type="button"
           onClick={toggleDropdown}
@@ -97,6 +108,7 @@ const Dropdown: FC<Props> = ({ children, triggerIcon, ariaLabel }) => {
               {dropdownBackdrop}
               {dropdownCaret}
               <motion.div
+                data-testid="menu"
                 variants={containerVariants}
                 initial="initial"
                 animate="animate"
