@@ -1,10 +1,11 @@
 import { Warning } from "phosphor-react";
+import { FC, ReactNode } from "react";
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
-const Error: React.FC<Props> = ({ children }) => {
+const Error: FC<Props> = ({ children }) => {
   return (
     <span
       role="alert"

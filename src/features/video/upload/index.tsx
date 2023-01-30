@@ -102,8 +102,6 @@ const Upload: FC = () => {
     setValue("title", trimFileExtFromName(video.name));
   }
 
-  
-
   const onSubmit: SubmitHandler<Form> = async (data) => {
     if (!currentUserId) return;
 
@@ -282,7 +280,7 @@ const Upload: FC = () => {
         </div>
         <button
           type="submit"
-          className={clsx("btn-primary btn", { loading: isLoading })}
+          className={clsx("btn btn-primary", { loading: isLoading })}
           disabled={isLoading}
         >
           {isLoading ? "uploading" : "upload"}

@@ -85,16 +85,13 @@ const NewComment: FC<Props> = ({ videoId }) => {
         <div className="mt-4 flex justify-between">
           <div className="flex gap-4">
             <button
-              className="btn-outline btn btn-primary"
+              className="btn-outline btn-primary btn"
               onClick={handleRemoveFocus}
             >
               Cancel
             </button>
 
-            <button
-              className="btn btn-primary"
-              type="submit"
-            >
+            <button className="btn-primary btn" type="submit">
               Comment
             </button>
           </div>

@@ -12,7 +12,7 @@ import Tags from "./Tags";
 import {
   useDeleteVideoMutation,
   useGetVideoQuery,
-  useUpdateVideoMutation
+  useUpdateVideoMutation,
 } from "./videoApiSlice";
 
 const TITLE_MAX_LENGTH: number = 100;
@@ -35,7 +35,7 @@ const schema = z.object({
     .object({
       name: z.string().min(1, { message: "Tag must not be empty." }),
     })
-    .array()
+    .array(),
 });
 
 type Form = z.infer<typeof schema>;
@@ -149,7 +149,7 @@ const EditVideo: React.FC<Props> = ({ handleModalClose }) => {
 
       <div className="mt-8 flex justify-between">
         <button
-          className="btn-outline btn-error btn"
+          className="btn-outline btn btn-error"
           onClick={handleDelete}
           type="button"
           aria-label="delete video"
@@ -160,7 +160,7 @@ const EditVideo: React.FC<Props> = ({ handleModalClose }) => {
         <button
           type="submit"
           disabled={isLoading}
-          className={clsx("btn-primary btn", { loading: isLoading })}
+          className={clsx("btn btn-primary", { loading: isLoading })}
           aria-label="update video details"
         >
           {isLoading ? "Updating..." : "Update"}

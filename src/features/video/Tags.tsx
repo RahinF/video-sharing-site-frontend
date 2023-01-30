@@ -51,11 +51,13 @@ const Tags: FC<Props> = ({ control, register, error }) => {
     <div className="flex flex-col gap-2">
       <span className="flex justify-between">
         <span>Tags</span>
-        <span className="text-sm" aria-hidden="true">{tagCount} / {MAX_TAGS}</span>
+        <span className="text-sm" aria-hidden="true">
+          {tagCount} / {MAX_TAGS}
+        </span>
       </span>
       <button
         type="button"
-        className="btn-primary btn"
+        className="btn btn-primary"
         onClick={() => addTag()}
         disabled={tagLimitReached}
         aria-label="add tag field"

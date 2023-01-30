@@ -29,7 +29,7 @@ const LikeButton: FC<Props> = ({ likes, handleLike, handleUnlike }) => {
     <div className="flex items-center">
       <button
         onClick={handleOnClick}
-        className="btn btn-ghost btn-circle"
+        className="btn-ghost btn-circle btn"
         aria-label="like video"
       >
         <Heart

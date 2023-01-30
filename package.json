@@ -36,6 +36,7 @@
     "test": "react-scripts test",
     "coverage": "yarn test --coverage --watchAll",
     "eject": "react-scripts eject",
+    "prettier": "prettier --ignore-path .gitignore --write \"**/*.{ts,tsx,css,scss}\"",
     "storybook": "concurrently \"yarn:watch:*\"",
     "build-storybook": "concurrently \"yarn:build:*\"",
     "build:css": "npx tailwindcss -i ./src/tailwind.css -o ./public/tailwind.css",

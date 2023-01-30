@@ -12,12 +12,12 @@ interface Props {
 
 const Comments = ({ videoId }: Props) => {
   const { data: comments, isLoading } = useGetCommentsQuery(videoId);
-  const userIsLoggedIn = useSelector(selectCurrentUserId)
+  const userIsLoggedIn = useSelector(selectCurrentUserId);
 
   return (
     <div className="grid gap-6">
       {userIsLoggedIn && <NewComment videoId={videoId} />}
-      <span>{pluralizeAndFormatNumber("Comment", comments?.length || 0 )}</span>
+      <span>{pluralizeAndFormatNumber("Comment", comments?.length || 0)}</span>
       <div className="flex flex-col gap-4">
         {isLoading ? (
           <Skeleton count={3} type="comment" />

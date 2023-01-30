@@ -56,9 +56,9 @@ const Login: FC = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="w-full max-w-xl rounded bg-primary-dark py-6 px-10"
       >
-        <p className="text-center text-error mb-10">{errorMessage}</p>
+        <p className="mb-10 text-center text-error">{errorMessage}</p>
 
-        <h1 className="mb-6 text-3xl text-center">Login</h1>
+        <h1 className="mb-6 text-center text-3xl">Login</h1>
         <div className="grid gap-6">
           <Input
             id="email"

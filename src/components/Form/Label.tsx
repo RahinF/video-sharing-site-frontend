@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { FC } from "react";
 
 interface Props {
   htmlFor: string;
@@ -10,8 +11,8 @@ interface Props {
   required?: boolean;
 }
 
-const Label: React.FC<Props> = ({ htmlFor, label, length, required }) => {
-  const error: boolean = !!(length && length.current > length.max);
+const Label: FC<Props> = ({ htmlFor, label, length, required }) => {
+  const hasLengthError: boolean = !!(length && length.current > length.max);
 
   return (
     <label htmlFor={htmlFor} className="flex justify-between">
@@ -28,7 +29,7 @@ const Label: React.FC<Props> = ({ htmlFor, label, length, required }) => {
           aria-hidden
           className={clsx({
             "text-sm": true,
-            "text-error": error,
+            "text-error": hasLengthError,
           })}
         >
           {`${length.current} / ${length.max}`}

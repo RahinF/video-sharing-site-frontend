@@ -41,7 +41,6 @@ const Input: FC<Props> = forwardRef<HTMLInputElement, Props>(
         setLength(defaultValue.length);
       }
     }, [defaultValue]);
-    
 
     return (
       <div className="flex flex-col gap-2">

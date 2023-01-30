@@ -45,15 +45,18 @@ const videoApiSlice = apiSlice.injectEndpoints({
         body: inputs,
       }),
     }),
-    uploadVideo: builder.mutation<Video, {
-      title: string,
-      description: string,
-      duration: number,
-      imageUrl : string,
-      videoUrl: string,
-      tags: string[],
-      userId: string,
-    }>({
+    uploadVideo: builder.mutation<
+      Video,
+      {
+        title: string;
+        description: string;
+        duration: number;
+        imageUrl: string;
+        videoUrl: string;
+        tags: string[];
+        userId: string;
+      }
+    >({
       query: (inputs) => ({
         url: `videos/`,
         method: "POST",

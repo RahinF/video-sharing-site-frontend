@@ -10,28 +10,25 @@
     scrollbar-color: #374151 #212121;
   }
 
-body {
+  body {
     @apply bg-primary;
   }
-
 
   html {
     font-family: "Poppins", sans-serif;
   }
 
   ::-webkit-scrollbar {
-    @apply w-2 h-2;
+    @apply h-2 w-2;
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: #374151
+    background-color: #374151;
   }
 
   ::-webkit-scrollbar-track {
-    background-color: #212121
+    background-color: #212121;
   }
-
-  
 }
 
 @layer components {

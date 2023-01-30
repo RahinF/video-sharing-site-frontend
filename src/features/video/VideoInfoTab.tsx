@@ -34,7 +34,7 @@ const VideoInfoTab: FC<Props> = ({ video }) => {
             {video.tags.map((tag, index) => (
               <Link
                 to={`/tags?tags=${tag}`}
-                className="btn-sm btn"
+                className="btn btn-sm"
                 key={index}
                 aria-label={`${tag} tag`}
               >

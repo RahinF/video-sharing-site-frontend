@@ -12,8 +12,8 @@ import { RootState } from "../store";
 import { url } from "./config";
 
 interface Props {
-  user: User
-  accessToken: string
+  user: User;
+  accessToken: string;
 }
 
 const baseQuery = fetchBaseQuery({
@@ -30,8 +30,6 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-
-
 const baseQueryWithReauth: BaseQueryFn<
   string | FetchArgs,
   unknown,
@@ -43,7 +41,7 @@ const baseQueryWithReauth: BaseQueryFn<
     // try to get a new token
     const refreshResult = await baseQuery("/auth/refresh", api, extraOptions);
     if (refreshResult.data) {
-      // store the new token and user 
+      // store the new token and user
       const { user, accessToken } = refreshResult.data as Props;
       api.dispatch(setToken(accessToken));
       api.dispatch(setUser(user));
