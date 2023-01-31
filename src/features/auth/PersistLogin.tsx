@@ -1,8 +1,8 @@
-import { Outlet } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useRefreshMutation } from "./authApiSlice";
-import { useSelector } from "react-redux";
-import { selectCurrentToken } from "./authSlice";
+import { Outlet } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useRefreshMutation } from './authApiSlice';
+import { useSelector } from 'react-redux';
+import { selectCurrentToken } from './authSlice';
 
 const PersistLogin: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);

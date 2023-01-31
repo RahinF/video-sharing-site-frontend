@@ -1,5 +1,5 @@
-import { apiSlice } from "../../app/api/apiSlice";
-import { Comment } from "../../types/comment";
+import { apiSlice } from '../../app/api/apiSlice';
+import { Comment } from '../../types/comment';
 
 const commentsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -20,15 +20,15 @@ const commentsApiSlice = apiSlice.injectEndpoints({
       }
     >({
       query: (comment) => ({
-        url: "comments/",
-        method: "POST",
+        url: 'comments/',
+        method: 'POST',
         body: comment,
       }),
     }),
     deleteComment: builder.mutation<string, string>({
       query: (id) => ({
         url: `comments/${id}`,
-        method: "DELETE",
+        method: 'DELETE',
       }),
     }),
     likeComment: builder.mutation<
@@ -37,7 +37,7 @@ const commentsApiSlice = apiSlice.injectEndpoints({
     >({
       query: ({ currentUserId, commentId }) => ({
         url: `users/${currentUserId}/comment/like/${commentId}`,
-        method: "PUT",
+        method: 'PUT',
       }),
     }),
     unlikeComment: builder.mutation<
@@ -46,29 +46,29 @@ const commentsApiSlice = apiSlice.injectEndpoints({
     >({
       query: ({ currentUserId, commentId }) => ({
         url: `users/${currentUserId}/comment/unlike/${commentId}`,
-        method: "PUT",
+        method: 'PUT',
       }),
     }),
   }),
 });
 
 apiSlice.enhanceEndpoints({
-  addTagTypes: ["Comment"],
+  addTagTypes: ['Comment'],
   endpoints: {
     getComments: {
-      providesTags: ["Comment"],
+      providesTags: ['Comment'],
     },
     postComment: {
-      invalidatesTags: ["Comment"],
+      invalidatesTags: ['Comment'],
     },
     deleteComment: {
-      invalidatesTags: ["Comment"],
+      invalidatesTags: ['Comment'],
     },
     likeComment: {
-      invalidatesTags: ["Comment"],
+      invalidatesTags: ['Comment'],
     },
     unlikeComment: {
-      invalidatesTags: ["Comment"],
+      invalidatesTags: ['Comment'],
     },
   },
 });

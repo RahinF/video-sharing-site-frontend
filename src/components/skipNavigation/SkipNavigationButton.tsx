@@ -1,5 +1,5 @@
-import { FC } from "react";
-import useGlobalContext from "../../context/GlobalContext";
+import { FC } from 'react';
+import useGlobalContext from '../../context/GlobalContext';
 
 const SkipNavigationButton: FC = () => {
   const { skipNavigationOnClick } = useGlobalContext();

@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect, useRef } from "react";
+import { FC, ReactNode, useEffect, useRef } from 'react';
 
 /**
  * Hook that alerts clicks outside of the passed ref
@@ -24,7 +24,10 @@ const OutSideClick: FC<Props> = ({ onClick, children, className }) => {
   }, [ref, onClick]);
 
   return (
-    <div ref={ref} className={className}>
+    <div
+      ref={ref}
+      className={className}
+    >
       {children}
     </div>
   );

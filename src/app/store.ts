@@ -1,14 +1,14 @@
-import type { PreloadedState } from "@reduxjs/toolkit";
+import type { PreloadedState } from '@reduxjs/toolkit';
 import {
   Action,
   combineReducers,
   configureStore,
   ThunkAction,
-} from "@reduxjs/toolkit";
-import authReducer from "../features/auth/authSlice";
-import menuReducer from "../features/menu/menuSlice";
-import userReducer from "../features/user/userSlice";
-import { apiSlice } from "./api/apiSlice";
+} from '@reduxjs/toolkit';
+import authReducer from '../features/auth/authSlice';
+import menuReducer from '../features/menu/menuSlice';
+import userReducer from '../features/user/userSlice';
+import { apiSlice } from './api/apiSlice';
 
 export const rootReducer = combineReducers({
   [apiSlice.reducerPath]: apiSlice.reducer,
@@ -21,7 +21,7 @@ export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
-  devTools: process.env.NODE_ENV === "development" ? true : false,
+  devTools: process.env.NODE_ENV === 'development' ? true : false,
 });
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) => {

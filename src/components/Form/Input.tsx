@@ -1,11 +1,11 @@
-import clsx from "clsx";
-import { Eye, EyeSlash } from "phosphor-react";
-import { FC, forwardRef, useEffect, useState } from "react";
-import { FieldError } from "react-hook-form";
-import Error from "./Error";
-import Label from "./Label";
+import clsx from 'clsx';
+import { Eye, EyeSlash } from 'phosphor-react';
+import { FC, forwardRef, useEffect, useState } from 'react';
+import { FieldError } from 'react-hook-form';
+import Error from './Error';
+import Label from './Label';
 
-export type Type = "text" | "email" | "password";
+export type Type = 'text' | 'email' | 'password';
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string;
@@ -24,7 +24,7 @@ const Input: FC<Props> = forwardRef<HTMLInputElement, Props>(
       error,
       label,
       maxLength,
-      type = "text",
+      type = 'text',
       required = false,
       defaultValue,
       ...props
@@ -34,7 +34,7 @@ const Input: FC<Props> = forwardRef<HTMLInputElement, Props>(
     const [length, setLength] = useState<number>(0);
     const [isVisible, setIsVisible] = useState<boolean>(false);
 
-    const passwordType: Type = isVisible ? "text" : "password";
+    const passwordType: Type = isVisible ? 'text' : 'password';
 
     useEffect(() => {
       if (defaultValue) {
@@ -53,30 +53,30 @@ const Input: FC<Props> = forwardRef<HTMLInputElement, Props>(
         <div className="flex">
           <input
             id={id}
-            type={type === "password" ? passwordType : type}
+            type={type === 'password' ? passwordType : type}
             ref={ref}
-            className={clsx("input bg-primary", {
-              "border-error focus:border-error focus:ring-error": error,
-              "pr-14": type === "password",
+            className={clsx('input bg-primary', {
+              'border-error focus:border-error focus:ring-error': error,
+              'pr-14': type === 'password',
             })}
             {...(required && {
-              "aria-required": true,
-              "aria-invalid": !!error,
+              'aria-required': true,
+              'aria-invalid': !!error,
             })}
             {...props}
             {...(maxLength && {
               onChange: (event) => setLength(event.target.value.length),
             })}
           />
-          {type === "password" && (
+          {type === 'password' && (
             <button
               type="button"
               className="-ml-14 px-4"
               onClick={() => setIsVisible((prev) => !prev)}
               aria-label={
                 isVisible
-                  ? "Hide password."
-                  : "Show password as plain text. Warning: this will display your password on the screen."
+                  ? 'Hide password.'
+                  : 'Show password as plain text. Warning: this will display your password on the screen.'
               }
             >
               {isVisible ? <EyeSlash size={24} /> : <Eye size={24} />}

@@ -1,4 +1,4 @@
-import { createContext, RefObject, useContext, useRef } from "react";
+import { createContext, RefObject, useContext, useRef } from 'react';
 
 interface ContextProps {
   skipNavigationRef: RefObject<HTMLElement>;
@@ -31,7 +31,7 @@ const useGlobalContext = () => {
   const context = useContext(GlobalContext);
   if (context === undefined) {
     throw new Error(
-      "useGlobalContextHook must be used within a GlobalProvider."
+      'useGlobalContextHook must be used within a GlobalProvider.'
     );
   }
 

@@ -9,11 +9,11 @@ jest.mock("react-router-dom", () => ({
 }));
 
 test("if button to open searchbar renders", () => {
-    const { getByRole } = render(<SearchBar />);
-    expect(getByRole("button")).toBeInTheDocument();
+    render(<SearchBar />);
+    expect(screen.getByRole("button")).toBeInTheDocument();
 });
 
-test("if button to open searchbar renders", async () => {
+test("if searchbar renders when openeded", async () => {
     user.setup();
     render(<SearchBar />);
 

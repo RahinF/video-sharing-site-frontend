@@ -1,5 +1,5 @@
-import clsx from "clsx";
-import { FC } from "react";
+import clsx from 'clsx';
+import { FC } from 'react';
 
 interface Props {
   htmlFor: string;
@@ -15,11 +15,17 @@ const Label: FC<Props> = ({ htmlFor, label, length, required }) => {
   const hasLengthError: boolean = !!(length && length.current > length.max);
 
   return (
-    <label htmlFor={htmlFor} className="flex justify-between">
+    <label
+      htmlFor={htmlFor}
+      className="flex justify-between"
+    >
       <span>
-        {label}{" "}
+        {label}{' '}
         {required && (
-          <span aria-hidden className="text-error">
+          <span
+            aria-hidden
+            className="text-error"
+          >
             *
           </span>
         )}
@@ -28,8 +34,8 @@ const Label: FC<Props> = ({ htmlFor, label, length, required }) => {
         <span
           aria-hidden
           className={clsx({
-            "text-sm": true,
-            "text-error": hasLengthError,
+            'text-sm': true,
+            'text-error': hasLengthError,
           })}
         >
           {`${length.current} / ${length.max}`}

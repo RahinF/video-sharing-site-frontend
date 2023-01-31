@@ -1,11 +1,11 @@
-import { FC, Suspense } from "react";
-import { Toaster } from "react-hot-toast";
-import { Outlet } from "react-router-dom";
-import { GlobalProvider } from "../../context/GlobalContext";
-import Sidebar from "../../features/menu/sidebar";
-import Navbar from "../../features/menu/topbar";
-import NavigationSkipped from "../skipNavigation/NavigationSkipped";
-import Spinner from "../Spinner";
+import { FC, Suspense } from 'react';
+import { Toaster } from 'react-hot-toast';
+import { Outlet } from 'react-router-dom';
+import { GlobalProvider } from '../../context/GlobalContext';
+import Sidebar from '../../features/menu/sidebar';
+import Navbar from '../../features/menu/topbar';
+import NavigationSkipped from '../skipNavigation/NavigationSkipped';
+import Spinner from '../Spinner';
 
 const Layout: FC = () => {
   return (

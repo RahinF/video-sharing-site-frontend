@@ -1,11 +1,11 @@
-import { PreloadedState } from "@reduxjs/toolkit";
-import { render, RenderOptions } from "@testing-library/react";
-import { PropsWithChildren, ReactElement } from "react";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
-import { AppStore, RootState, setupStore } from "../app/store";
+import { PreloadedState } from '@reduxjs/toolkit';
+import { render, RenderOptions } from '@testing-library/react';
+import { PropsWithChildren, ReactElement } from 'react';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { AppStore, RootState, setupStore } from '../app/store';
 
-interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
+interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: PreloadedState<RootState>;
   store?: AppStore;
 }

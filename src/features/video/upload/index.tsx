@@ -1,23 +1,23 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import clsx from "clsx";
-import { FC, useEffect, useState } from "react";
-import { DropzoneOptions } from "react-dropzone";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import { z } from "zod";
-import { useAppSelector } from "../../../app/hooks";
-import Dropzone from "../../../components/Form/Dropzone";
-import Error from "../../../components/Form/Error";
-import Input from "../../../components/Form/Input";
-import TextArea from "../../../components/Form/TextArea";
-import { uploadFile, uploadFileBase64 } from "../../../firebaseFunctions";
-import trimFileExtFromName from "../../../util/trimFileExtFromName";
-import { selectCurrentUserId } from "../../user/userSlice";
-import Tags from "../Tags";
-import { useUploadVideoMutation } from "../videoApiSlice";
-import { generateVideoThumbnails, getVideoDuration } from "./generateThumbnail";
-import Thumbnails from "./Thumbnails";
+import { zodResolver } from '@hookform/resolvers/zod';
+import clsx from 'clsx';
+import { FC, useEffect, useState } from 'react';
+import { DropzoneOptions } from 'react-dropzone';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { z } from 'zod';
+import { useAppSelector } from '../../../app/hooks';
+import Dropzone from '../../../components/Form/Dropzone';
+import Error from '../../../components/Form/Error';
+import Input from '../../../components/Form/Input';
+import TextArea from '../../../components/Form/TextArea';
+import { uploadFile, uploadFileBase64 } from '../../../firebaseFunctions';
+import trimFileExtFromName from '../../../util/trimFileExtFromName';
+import { selectCurrentUserId } from '../../user/userSlice';
+import Tags from '../Tags';
+import { useUploadVideoMutation } from '../videoApiSlice';
+import { generateVideoThumbnails, getVideoDuration } from './generateThumbnail';
+import Thumbnails from './Thumbnails';
 
 const TITLE_MAX_LENGTH: number = 100;
 const DESCRIPTION_MAX_LENGTH: number = 250;
@@ -25,31 +25,31 @@ const DESCRIPTION_MAX_LENGTH: number = 250;
 const schema = z.object({
   title: z
     .string()
-    .min(1, { message: "Title is required." })
+    .min(1, { message: 'Title is required.' })
     .max(TITLE_MAX_LENGTH, {
       message: `Title cannot be more than ${TITLE_MAX_LENGTH} characters.`,
     }),
   description: z
     .string()
-    .min(1, { message: "Description is required." })
+    .min(1, { message: 'Description is required.' })
     .max(DESCRIPTION_MAX_LENGTH, {
       message: `Description cannot be more than ${DESCRIPTION_MAX_LENGTH} characters.`,
     }),
   tags: z
     .object({
-      name: z.string().min(1, { message: "Tag must not be empty." }),
+      name: z.string().min(1, { message: 'Tag must not be empty.' }),
     })
     .array(),
   thumbnail: z.string({
-    required_error: "Please select a thumbnail.",
-    invalid_type_error: "Please select a thumbnail.",
+    required_error: 'Please select a thumbnail.',
+    invalid_type_error: 'Please select a thumbnail.',
   }),
-  video: z.instanceof(File, { message: "Video file is required." }),
+  video: z.instanceof(File, { message: 'Video file is required.' }),
 });
 
 export type Form = z.infer<typeof schema>;
 
-export type ThumbnailStatus = "initial" | "loading" | "set";
+export type ThumbnailStatus = 'initial' | 'loading' | 'set';
 
 const Upload: FC = () => {
   const currentUserId = useAppSelector(selectCurrentUserId);
@@ -67,7 +67,7 @@ const Upload: FC = () => {
   const [thumbnailsPreview, setThumbnailsPreview] = useState<string[]>([]);
 
   const [thumbnailStatus, setThumbnailStatus] =
-    useState<ThumbnailStatus>("initial");
+    useState<ThumbnailStatus>('initial');
 
   const [videoPreview, setVideoPreview] = useState<string | undefined>(
     undefined
@@ -83,13 +83,13 @@ const Upload: FC = () => {
     setValue,
     formState: { errors, isSubmitSuccessful },
   } = useForm<Form>({
-    mode: "onSubmit",
+    mode: 'onSubmit',
     resolver: zodResolver(schema),
   });
 
   const dropzoneOptions: DropzoneOptions = {
     accept: {
-      "video/mp4": [".mp4"],
+      'video/mp4': ['.mp4'],
     },
     multiple: false,
     onDrop: onDrop,
@@ -97,9 +97,9 @@ const Upload: FC = () => {
 
   function onDrop(files: File[]) {
     const video = files[0];
-    setValue("video", video);
+    setValue('video', video);
     setVideoFile(video);
-    setValue("title", trimFileExtFromName(video.name));
+    setValue('title', trimFileExtFromName(video.name));
   }
 
   const onSubmit: SubmitHandler<Form> = async (data) => {
@@ -112,9 +112,9 @@ const Upload: FC = () => {
     setIsLoading(true);
 
     try {
-      const imageUrl = (await uploadFileBase64(thumbnail, "images/")) as string;
+      const imageUrl = (await uploadFileBase64(thumbnail, 'images/')) as string;
 
-      const videoUrl = (await uploadFile(video, "videos/")) as string;
+      const videoUrl = (await uploadFile(video, 'videos/')) as string;
 
       const uploadedVideo = await uploadVideo({
         title,
@@ -126,10 +126,10 @@ const Upload: FC = () => {
         userId: currentUserId,
       }).unwrap();
 
-      toast.success("Video uploaded successfully.");
+      toast.success('Video uploaded successfully.');
       navigate(`/video/${uploadedVideo._id}`);
     } catch (error) {
-      toast.error("Could not upload video.");
+      toast.error('Could not upload video.');
     } finally {
       setIsLoading(false);
     }
@@ -167,12 +167,12 @@ const Upload: FC = () => {
     };
 
     (async () => {
-      setThumbnailStatus("loading");
+      setThumbnailStatus('loading');
       const duration = await getVideoDuration(videoFile);
       const thumbnails = await generateThumbnails(10);
       setDuration(duration as number);
       setThumbnailsPreview(thumbnails);
-      setThumbnailStatus("set");
+      setThumbnailStatus('set');
     })();
   }, [videoFile]);
 
@@ -184,14 +184,14 @@ const Upload: FC = () => {
   }, [isSubmitSuccessful, reset]);
 
   function removeVideoButtonOnClick() {
-    resetField("video");
-    resetField("thumbnail");
+    resetField('video');
+    resetField('thumbnail');
     resetVideoAndThumbnail();
   }
 
   function resetVideoAndThumbnail() {
     setVideoPreview(undefined);
-    setThumbnailStatus("initial");
+    setThumbnailStatus('initial');
     setThumbnailsPreview([]);
     setSelectedThumbnail(undefined);
   }
@@ -211,31 +211,38 @@ const Upload: FC = () => {
           <Input
             id="title"
             label="Title"
-            {...register("title")}
+            {...register('title')}
             error={errors.title}
             maxLength={TITLE_MAX_LENGTH}
-            defaultValue={getValues("title")}
+            defaultValue={getValues('title')}
             required
           />
 
           <TextArea
             id="description"
             label="Description"
-            {...register("description")}
+            {...register('description')}
             error={errors.description}
             maxLength={DESCRIPTION_MAX_LENGTH}
             rows={4}
             required
           />
 
-          <Tags control={control} register={register} error={errors.tags} />
+          <Tags
+            control={control}
+            register={register}
+            error={errors.tags}
+          />
         </div>
 
         <div className="flex max-w-xl basis-1/2 flex-col gap-4">
           <div className="flex flex-col gap-2">
             <label htmlFor="video">
-              Video{" "}
-              <span aria-hidden className="text-error">
+              Video{' '}
+              <span
+                aria-hidden
+                className="text-error"
+              >
                 *
               </span>
             </label>
@@ -244,7 +251,11 @@ const Upload: FC = () => {
 
             {videoPreview ? (
               <>
-                <video src={videoPreview} controls className="rounded-lg" />
+                <video
+                  src={videoPreview}
+                  controls
+                  className="rounded-lg"
+                />
                 <button
                   type="button"
                   className="btn"
@@ -257,7 +268,7 @@ const Upload: FC = () => {
               <Dropzone
                 id="video"
                 dropzoneOptions={dropzoneOptions}
-                {...register("video")}
+                {...register('video')}
               />
             )}
           </div>
@@ -280,10 +291,10 @@ const Upload: FC = () => {
         </div>
         <button
           type="submit"
-          className={clsx("btn btn-primary", { loading: isLoading })}
+          className={clsx('btn btn-primary', { loading: isLoading })}
           disabled={isLoading}
         >
-          {isLoading ? "uploading" : "upload"}
+          {isLoading ? 'uploading' : 'upload'}
         </button>
       </div>
     </form>

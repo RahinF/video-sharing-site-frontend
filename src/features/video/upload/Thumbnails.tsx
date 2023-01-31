@@ -1,10 +1,10 @@
-import clsx from "clsx";
-import { Dispatch, FC, KeyboardEvent, SetStateAction } from "react";
-import { FieldError, UseFormRegister, UseFormSetValue } from "react-hook-form";
-import ScrollContainer from "react-indiana-drag-scroll";
-import { Form, ThumbnailStatus } from ".";
-import Error from "../../../components/Form/Error";
-import Spinner from "../../../components/Spinner";
+import clsx from 'clsx';
+import { Dispatch, FC, KeyboardEvent, SetStateAction } from 'react';
+import { FieldError, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import ScrollContainer from 'react-indiana-drag-scroll';
+import { Form, ThumbnailStatus } from '.';
+import Error from '../../../components/Form/Error';
+import Spinner from '../../../components/Spinner';
 
 interface Props {
   error: FieldError | undefined;
@@ -30,26 +30,29 @@ const Thumbnails: FC<Props> = ({
     thumbnail: string
   ) {
     const { code } = event;
-    if (code === "Enter" || code === "Space") {
+    if (code === 'Enter' || code === 'Space') {
       event.preventDefault();
-      setValue("thumbnail", thumbnail);
+      setValue('thumbnail', thumbnail);
       setSelectedThumbnail(thumbnail);
     }
   }
 
-  if (thumbnailStatus === "initial") return null;
-  if (thumbnailStatus === "loading") return <Spinner />;
+  if (thumbnailStatus === 'initial') return null;
+  if (thumbnailStatus === 'loading') return <Spinner />;
 
   return (
     <div>
       <span className="my-2">
-        Thumbnail{" "}
-        <span aria-hidden className="text-error">
+        Thumbnail{' '}
+        <span
+          aria-hidden
+          className="text-error"
+        >
           *
         </span>
       </span>
 
-      {thumbnailStatus === "set" && (
+      {thumbnailStatus === 'set' && (
         <ScrollContainer
           hideScrollbars={false}
           className="flex gap-2 overflow-auto p-2"
@@ -65,17 +68,17 @@ const Thumbnails: FC<Props> = ({
                 width={160}
                 height={90}
                 src={thumbnail}
-                className={clsx("aspect-video max-w-none rounded-lg", {
+                className={clsx('aspect-video max-w-none rounded-lg', {
                   [thumbnail === selectedThumbnail
-                    ? "opacity-100"
-                    : "opacity-50"]: true,
+                    ? 'opacity-100'
+                    : 'opacity-50']: true,
                 })}
                 onClick={() => setSelectedThumbnail(thumbnail)}
                 alt={`thumbnail preview ${index + 1}`}
               />
               <input
                 type="radio"
-                {...register("thumbnail")}
+                {...register('thumbnail')}
                 value={thumbnail}
                 hidden
               />

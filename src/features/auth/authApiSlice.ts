@@ -1,6 +1,6 @@
-import { apiSlice } from "../../app/api/apiSlice";
-import { clearUser, setUser } from "../user/userSlice";
-import { clearToken, setToken } from "./authSlice";
+import { apiSlice } from '../../app/api/apiSlice';
+import { clearUser, setUser } from '../user/userSlice';
+import { clearToken, setToken } from './authSlice';
 
 const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -16,8 +16,8 @@ const authApiSlice = apiSlice.injectEndpoints({
       { email: string; password: string }
     >({
       query: (credentials) => ({
-        url: "/auth/login",
-        method: "POST",
+        url: '/auth/login',
+        method: 'POST',
         body: credentials,
       }),
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
@@ -44,8 +44,8 @@ const authApiSlice = apiSlice.injectEndpoints({
       { name: string; email: string; password: string }
     >({
       query: (credentials) => ({
-        url: "/auth/register",
-        method: "POST",
+        url: '/auth/register',
+        method: 'POST',
         body: credentials,
       }),
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
@@ -72,8 +72,8 @@ const authApiSlice = apiSlice.injectEndpoints({
       void
     >({
       query: () => ({
-        url: "/auth/refresh",
-        method: "GET",
+        url: '/auth/refresh',
+        method: 'GET',
       }),
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         try {
@@ -89,8 +89,8 @@ const authApiSlice = apiSlice.injectEndpoints({
     }),
     logout: builder.mutation<void, void>({
       query: () => ({
-        url: "/auth/logout",
-        method: "POST",
+        url: '/auth/logout',
+        method: 'POST',
       }),
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         try {

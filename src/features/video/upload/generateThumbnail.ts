@@ -19,7 +19,7 @@ export const generateVideoThumbnails = async (
   let thumbnails: string[] = [];
 
   return new Promise(async (resolve, reject) => {
-    if (!file.type?.includes("video")) reject("not a valid video file");
+    if (!file.type?.includes('video')) reject('not a valid video file');
     try {
       const duration = (await getVideoDuration(file)) as number;
 
@@ -42,24 +42,24 @@ export const generateVideoThumbnails = async (
         resolve(thumbnails);
       }
     } catch {
-      reject("something went wrong");
+      reject('something went wrong');
     }
   });
 };
 
 const getVideoThumbnail = (file: File, videoTimeInSeconds: number) => {
   return new Promise(async (resolve, reject) => {
-    if (!file.type.match("video")) reject("file not valid");
+    if (!file.type.match('video')) reject('file not valid');
 
     const url = (await importFileandPreview(file, null)) as string;
-    const video = document.createElement("video");
+    const video = document.createElement('video');
 
     const snapImage = () => {
-      const canvas = document.createElement("canvas");
+      const canvas = document.createElement('canvas');
       canvas.width = video.videoWidth / 2;
       canvas.height = video.videoHeight / 2;
       canvas
-        .getContext("2d")!
+        .getContext('2d')!
         .drawImage(video, 0, 0, canvas.width, canvas.height);
       const image = canvas.toDataURL();
 
@@ -85,7 +85,7 @@ const getVideoThumbnail = (file: File, videoTimeInSeconds: number) => {
       }
     };
 
-    video.preload = "metadata";
+    video.preload = 'metadata';
     video.src = url;
     // Load video in Safari / IE11
     video.muted = true;
@@ -97,13 +97,13 @@ const getVideoThumbnail = (file: File, videoTimeInSeconds: number) => {
 
 export const getVideoDuration = (file: File) => {
   return new Promise(async (resolve, reject) => {
-    if (!file) reject("file not valid");
-    if (file.type.match("video")) {
+    if (!file) reject('file not valid');
+    if (file.type.match('video')) {
       try {
         const url = (await importFileandPreview(file, null)) as string;
-        const video = document.createElement("video");
+        const video = document.createElement('video');
         video.onloadeddata = () => resolve(video.duration);
-        video.preload = "metadata";
+        video.preload = 'metadata';
         video.src = url;
         // Load video in Safari / IE11
         video.muted = true;

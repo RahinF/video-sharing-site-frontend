@@ -1,5 +1,5 @@
-import { apiSlice } from "../../app/api/apiSlice";
-import { Video } from "../../types/video";
+import { apiSlice } from '../../app/api/apiSlice';
+import { Video } from '../../types/video';
 
 const videoApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -24,7 +24,7 @@ const videoApiSlice = apiSlice.injectEndpoints({
     deleteVideo: builder.mutation<string, string>({
       query: (id) => ({
         url: `videos/${id}`,
-        method: "DELETE",
+        method: 'DELETE',
       }),
     }),
     updateVideo: builder.mutation<
@@ -41,7 +41,7 @@ const videoApiSlice = apiSlice.injectEndpoints({
     >({
       query: ({ id, inputs }) => ({
         url: `videos/${id}`,
-        method: "PUT",
+        method: 'PUT',
         body: inputs,
       }),
     }),
@@ -59,14 +59,14 @@ const videoApiSlice = apiSlice.injectEndpoints({
     >({
       query: (inputs) => ({
         url: `videos/`,
-        method: "POST",
+        method: 'POST',
         body: inputs,
       }),
     }),
     addView: builder.mutation<string, string>({
       query: (id) => ({
         url: `videos/view/${id}`,
-        method: "PUT",
+        method: 'PUT',
       }),
     }),
     likeVideo: builder.mutation<
@@ -75,7 +75,7 @@ const videoApiSlice = apiSlice.injectEndpoints({
     >({
       query: ({ currentUserId, videoId }) => ({
         url: `users/${currentUserId}/video/like/${videoId}`,
-        method: "PUT",
+        method: 'PUT',
       }),
     }),
     unlikeVideo: builder.mutation<
@@ -84,32 +84,32 @@ const videoApiSlice = apiSlice.injectEndpoints({
     >({
       query: ({ currentUserId, videoId }) => ({
         url: `users/${currentUserId}/video/unlike/${videoId}`,
-        method: "PUT",
+        method: 'PUT',
       }),
     }),
   }),
 });
 
 apiSlice.enhanceEndpoints({
-  addTagTypes: ["Video"],
+  addTagTypes: ['Video'],
   endpoints: {
     getVideos: {
-      providesTags: ["Video"],
+      providesTags: ['Video'],
     },
     useGetVideosByTagsQuery: {
-      providesTags: ["Video"],
+      providesTags: ['Video'],
     },
     getVideo: {
-      providesTags: ["Video"],
+      providesTags: ['Video'],
     },
     updateVideo: {
-      invalidatesTags: ["Video"],
+      invalidatesTags: ['Video'],
     },
     likeVideo: {
-      invalidatesTags: ["Video"],
+      invalidatesTags: ['Video'],
     },
     unlikeVideo: {
-      invalidatesTags: ["Video"],
+      invalidatesTags: ['Video'],
     },
   },
 });

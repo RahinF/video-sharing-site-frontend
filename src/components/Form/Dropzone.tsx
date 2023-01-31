@@ -1,6 +1,6 @@
-import clsx from "clsx";
-import { FC, forwardRef } from "react";
-import { DropzoneOptions, useDropzone } from "react-dropzone";
+import clsx from 'clsx';
+import { FC, forwardRef } from 'react';
+import { DropzoneOptions, useDropzone } from 'react-dropzone';
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string;
@@ -21,15 +21,21 @@ const Dropzone: FC<Props> = forwardRef<HTMLInputElement, Props>(
       <div
         {...getRootProps()}
         className={clsx(
-          "grid h-60 w-full cursor-pointer place-items-center border border-dashed",
+          'grid h-60 w-full cursor-pointer place-items-center border border-dashed',
           {
-            "border-white": !isDragActive,
-            "border-green-400": isDragAccept,
-            "border-red-400": isDragReject,
+            'border-white': !isDragActive,
+            'border-green-400': isDragAccept,
+            'border-red-400': isDragReject,
           }
         )}
       >
-        <input id={id} type="file" ref={ref} {...props} {...getInputProps()} />
+        <input
+          id={id}
+          type="file"
+          ref={ref}
+          {...props}
+          {...getInputProps()}
+        />
         <p>Drag 'n' drop file here, or click to select file.</p>
       </div>
     );

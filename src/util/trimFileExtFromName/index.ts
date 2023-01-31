@@ -1,5 +1,5 @@
 const trimFileExtFromName = (string: string): string => {
-  return string.replace(/\.[^/.]+$/, "");
+  return string.replace(/\.[^/.]+$/, '');
 };
 
 export default trimFileExtFromName;

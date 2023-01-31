@@ -1,4 +1,4 @@
-import pluralize from "pluralize";
+import pluralize from 'pluralize';
 
 /**
  * @param number
@@ -6,8 +6,8 @@ import pluralize from "pluralize";
  * @returns string
  */
 export const abbreviateNumber = (number: number) => {
-  return Intl.NumberFormat("en-US", {
-    notation: "compact",
+  return Intl.NumberFormat('en-US', {
+    notation: 'compact',
   }).format(number);
 };
 
@@ -17,7 +17,7 @@ export const abbreviateNumber = (number: number) => {
  * @returns string
  */
 export const formatNumber = (number: number) => {
-  return Intl.NumberFormat("en-US").format(number);
+  return Intl.NumberFormat('en-US').format(number);
 };
 
 /**

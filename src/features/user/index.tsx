@@ -1,23 +1,23 @@
-import clsx from "clsx";
-import { PencilSimple } from "phosphor-react";
-import pluralize from "pluralize";
-import { FC, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { z } from "zod";
-import { useAppSelector } from "../../app/hooks";
-import Avatar from "../../components/Avatar";
-import SubscribeButton from "../../components/SubscribeButton";
-import Videos from "../../components/Videos";
-import { Video } from "../../types/video";
-import { pluralizeAndAbbreviateNumber } from "../../util/number";
-import Modal from "../modal/Modal";
-import useModal from "../modal/useModal";
-import { useGetVideosByUserQuery } from "../video/videoApiSlice";
-import EditUser from "./EditUser";
-import { useGetUserQuery } from "./userApiSlice";
-import { selectCurrentUserId } from "./userSlice";
+import clsx from 'clsx';
+import { PencilSimple } from 'phosphor-react';
+import pluralize from 'pluralize';
+import { FC, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { z } from 'zod';
+import { useAppSelector } from '../../app/hooks';
+import Avatar from '../../components/Avatar';
+import SubscribeButton from '../../components/SubscribeButton';
+import Videos from '../../components/Videos';
+import { Video } from '../../types/video';
+import { pluralizeAndAbbreviateNumber } from '../../util/number';
+import Modal from '../modal/Modal';
+import useModal from '../modal/useModal';
+import { useGetVideosByUserQuery } from '../video/videoApiSlice';
+import EditUser from './EditUser';
+import { useGetUserQuery } from './userApiSlice';
+import { selectCurrentUserId } from './userSlice';
 
-const filters = z.enum(["latest", "most viewed", "top rated"]);
+const filters = z.enum(['latest', 'most viewed', 'top rated']);
 type Filters = z.infer<typeof filters>;
 
 const User: FC = () => {
@@ -28,7 +28,7 @@ const User: FC = () => {
 
   const [videos, setVideos] = useState<Video[]>([]);
   const [likes, setLikes] = useState<number>(0);
-  const [selectedFilter, setSelectedFilter] = useState<Filters>("latest");
+  const [selectedFilter, setSelectedFilter] = useState<Filters>('latest');
 
   const isChannelOwner = currentUserId === id;
   const isLoggedIn = currentUserId;
@@ -50,7 +50,7 @@ const User: FC = () => {
     let videos;
 
     switch (selectedFilter) {
-      case "latest":
+      case 'latest':
         videos = data
           .slice()
           .sort(
@@ -59,11 +59,11 @@ const User: FC = () => {
           );
         return setVideos(videos);
 
-      case "most viewed":
+      case 'most viewed':
         videos = data.slice().sort((a, b) => b.views - a.views);
         return setVideos(videos);
 
-      case "top rated":
+      case 'top rated':
         videos = data.slice().sort((a, b) => b.likes.length - a.likes.length);
         return setVideos(videos);
 
@@ -76,14 +76,21 @@ const User: FC = () => {
     <>
       <div className="grid gap-6">
         <div className="flex items-center gap-6">
-          <Avatar src={user?.image} alt={user?.name} size="xl" />
+          <Avatar
+            src={user?.image}
+            alt={user?.name}
+            size="xl"
+          />
 
           <div className="flex flex-col gap-1">
             <span className="text-xl font-medium">{user?.name}</span>
 
             <div className="mt-4">
               {isChannelOwner ? (
-                <button onClick={openModal} className="btn gap-2">
+                <button
+                  onClick={openModal}
+                  className="btn gap-2"
+                >
                   <PencilSimple size={24} />
                   Edit User
                 </button>
@@ -96,22 +103,26 @@ const User: FC = () => {
 
         <div className="flex gap-4">
           <span className="text-sm">
-            {pluralize("subscriber", user?.subscribers || 0, true)}
+            {pluralize('subscriber', user?.subscribers || 0, true)}
           </span>
 
           <span className="text-sm">
-            {pluralize("subscription", user?.subscriptions.length || 0, true)}
+            {pluralize('subscription', user?.subscriptions.length || 0, true)}
           </span>
 
           <span className="text-sm">
-            {pluralizeAndAbbreviateNumber("like", likes)}
+            {pluralizeAndAbbreviateNumber('like', likes)}
           </span>
         </div>
 
-        <p className="whitespace-pre-line">{user?.bio || "no bio"}</p>
+        <p className="whitespace-pre-line">{user?.bio || 'no bio'}</p>
       </div>
 
-      <Modal isOpen={isOpen} handleClose={closeModal} title="Edit User">
+      <Modal
+        isOpen={isOpen}
+        handleClose={closeModal}
+        title="Edit User"
+      >
         <EditUser handleModalClose={closeModal} />
       </Modal>
 
@@ -120,7 +131,7 @@ const User: FC = () => {
       <div className="my-6 flex flex-col-reverse items-center justify-between gap-4 md:flex-row">
         <h1 className="text-2xl">
           <span className="capitalize text-primary">{selectedFilter}&#32;</span>
-          <span>{pluralize("video", videos.length)}</span>
+          <span>{pluralize('video', videos.length)}</span>
         </h1>
 
         <div className="btn-group">
@@ -130,8 +141,8 @@ const User: FC = () => {
               aria-label={`filter videos by ${filter}`}
               type="button"
               className={clsx({
-                "btn btn-sm": true,
-                "btn-primary ": selectedFilter === filter,
+                'btn btn-sm': true,
+                'btn-primary ': selectedFilter === filter,
               })}
               onClick={() => setSelectedFilter(filter)}
             >
@@ -141,7 +152,10 @@ const User: FC = () => {
         </div>
       </div>
 
-      <Videos videos={videos} isLoading={isLoading} />
+      <Videos
+        videos={videos}
+        isLoading={isLoading}
+      />
     </>
   );
 };

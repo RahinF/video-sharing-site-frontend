@@ -1,15 +1,15 @@
-import { FC, useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
-import { useAppSelector } from "../app/hooks";
+import { FC, useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { useAppSelector } from '../app/hooks';
 import {
   useSubscribeMutation,
   useUnsubscribeMutation,
-} from "../features/user/userApiSlice";
+} from '../features/user/userApiSlice';
 import {
   selectCurrentUserId,
   selectCurrentUserSubscriptions,
-} from "../features/user/userSlice";
-import User from "../types/user";
+} from '../features/user/userSlice';
+import User from '../types/user';
 
 interface Props {
   videoOwner: User | undefined;
@@ -38,9 +38,9 @@ const SubscribeButton: FC<Props> = ({ videoOwner }) => {
         currentUserId,
         videoOwnerId: videoOwner._id,
       }).unwrap();
-      toast.success("Added to subscriptions.");
+      toast.success('Added to subscriptions.');
     } catch (error) {
-      toast.error("Could not subscribe to user.");
+      toast.error('Could not subscribe to user.');
     }
   }
   async function unsubscribeFromUser() {
@@ -51,9 +51,9 @@ const SubscribeButton: FC<Props> = ({ videoOwner }) => {
         currentUserId,
         videoOwnerId: videoOwner._id,
       }).unwrap();
-      toast.success("Removed from subscriptions.");
+      toast.success('Removed from subscriptions.');
     } catch (error) {
-      toast.error("Could not remove user from subscriptions.");
+      toast.error('Could not remove user from subscriptions.');
     }
   }
 
@@ -71,7 +71,7 @@ const SubscribeButton: FC<Props> = ({ videoOwner }) => {
           : `subscribe to ${videoOwner?.name}`
       }
     >
-      {isSubscribed ? "subscribed" : "subscribe"}
+      {isSubscribed ? 'subscribed' : 'subscribe'}
     </button>
   );
 };

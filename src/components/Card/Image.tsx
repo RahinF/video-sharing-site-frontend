@@ -1,6 +1,6 @@
-import clsx from "clsx";
-import { motion, Variants } from "framer-motion";
-import { FC, useState } from "react";
+import clsx from 'clsx';
+import { motion, Variants } from 'framer-motion';
+import { FC, useState } from 'react';
 
 interface Props {
   src: string;
@@ -17,15 +17,15 @@ const Image: FC<Props> = ({ src, alt }) => {
 
   return (
     <div
-      className={clsx("h-full bg-zinc-700", {
-        "animate-pulse": !loaded,
+      className={clsx('h-full bg-zinc-700', {
+        'animate-pulse': !loaded,
       })}
     >
       <motion.img
         src={src}
         alt={alt}
         initial="initial"
-        animate={loaded && "animate"}
+        animate={loaded && 'animate'}
         variants={variants}
         onLoad={() => setLoaded(true)}
         className="h-full w-full object-cover"

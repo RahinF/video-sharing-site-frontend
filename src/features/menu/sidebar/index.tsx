@@ -1,16 +1,16 @@
-import clsx from "clsx";
-import FocusTrap from "focus-trap-react";
-import { X } from "phosphor-react";
-import { KeyboardEvent, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { useAppSelector } from "../../../app/hooks";
-import OutSideClick from "../../../hooks/useOutsideClick";
-import useWindowSize from "../../../hooks/useWindowSize";
-import { selectCurrentUserId } from "../../user/userSlice";
-import { selectMenuIsOpen, setMenuIsOpen } from "../menuSlice";
-import menuItems from "./menuItems";
-import Subscriptions from "./Subscriptions";
+import clsx from 'clsx';
+import FocusTrap from 'focus-trap-react';
+import { X } from 'phosphor-react';
+import { KeyboardEvent, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { useAppSelector } from '../../../app/hooks';
+import OutSideClick from '../../../hooks/useOutsideClick';
+import useWindowSize from '../../../hooks/useWindowSize';
+import { selectCurrentUserId } from '../../user/userSlice';
+import { selectMenuIsOpen, setMenuIsOpen } from '../menuSlice';
+import menuItems from './menuItems';
+import Subscriptions from './Subscriptions';
 
 const Sidebar = () => {
   const isLoggedIn = useAppSelector(selectCurrentUserId);
@@ -28,7 +28,7 @@ const Sidebar = () => {
   }, [isDesktop, dispatch]);
 
   useEffect(() => {
-    document.body.style.overflow = isMobileAndMenuOpen ? "hidden" : "visible";
+    document.body.style.overflow = isMobileAndMenuOpen ? 'hidden' : 'visible';
   }, [isMobileAndMenuOpen]);
 
   const closeMenu = () => {
@@ -38,7 +38,7 @@ const Sidebar = () => {
   };
 
   const handleEscapeKeyPress = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.code === "Escape") {
+    if (event.code === 'Escape') {
       closeMenu();
     }
   };
@@ -47,16 +47,16 @@ const Sidebar = () => {
     return (
       <>
         <div
-          className={clsx("fixed top-0 z-[2] h-screen w-screen bg-black/50", {
-            [isMobileAndMenuOpen ? "block" : "hidden"]: true,
+          className={clsx('fixed top-0 z-[2] h-screen w-screen bg-black/50', {
+            [isMobileAndMenuOpen ? 'block' : 'hidden']: true,
           })}
           onClick={closeMenu}
         />
 
         <OutSideClick
           onClick={closeMenu}
-          className={clsx("z-[2] w-56 shrink-0 bg-primary", {
-            "fixed bottom-0 top-0": isMobileAndMenuOpen,
+          className={clsx('z-[2] w-56 shrink-0 bg-primary', {
+            'fixed bottom-0 top-0': isMobileAndMenuOpen,
           })}
         >
           <FocusTrap active={isMobileAndMenuOpen}>
@@ -86,7 +86,7 @@ const Sidebar = () => {
                             <>
                               <item.icon
                                 size={24}
-                                weight={isActive ? "fill" : "regular"}
+                                weight={isActive ? 'fill' : 'regular'}
                               />
                               <span>{item.text}</span>
                             </>

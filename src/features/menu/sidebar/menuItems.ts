@@ -1,21 +1,21 @@
-import { House, TrendUp, UsersThree } from "phosphor-react";
+import { House, TrendUp, UsersThree } from 'phosphor-react';
 
 const menuItems = [
   {
-    to: "/",
-    text: "Home",
+    to: '/',
+    text: 'Home',
     icon: House,
     requiresAuth: false,
   },
   {
-    to: "/feed/trending",
-    text: "Trending",
+    to: '/feed/trending',
+    text: 'Trending',
     icon: TrendUp,
     requiresAuth: false,
   },
   {
-    to: "/feed/subscriptions",
-    text: "Subscriptions",
+    to: '/feed/subscriptions',
+    text: 'Subscriptions',
     icon: UsersThree,
     requiresAuth: true,
   },

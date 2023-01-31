@@ -1,23 +1,23 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import clsx from "clsx";
-import { useEffect, useState } from "react";
-import { DropzoneOptions } from "react-dropzone";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "react-hot-toast";
-import { useNavigate, useParams } from "react-router-dom";
-import { z } from "zod";
-import Avatar from "../../components/Avatar";
-import Dropzone from "../../components/Form/Dropzone";
-import Error from "../../components/Form/Error";
-import Input from "../../components/Form/Input";
-import TextArea from "../../components/Form/TextArea";
-import { deleteFile, uploadFile } from "../../firebaseFunctions";
-import { useLogoutMutation } from "../auth/authApiSlice";
+import { zodResolver } from '@hookform/resolvers/zod';
+import clsx from 'clsx';
+import { useEffect, useState } from 'react';
+import { DropzoneOptions } from 'react-dropzone';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
+import { useNavigate, useParams } from 'react-router-dom';
+import { z } from 'zod';
+import Avatar from '../../components/Avatar';
+import Dropzone from '../../components/Form/Dropzone';
+import Error from '../../components/Form/Error';
+import Input from '../../components/Form/Input';
+import TextArea from '../../components/Form/TextArea';
+import { deleteFile, uploadFile } from '../../firebaseFunctions';
+import { useLogoutMutation } from '../auth/authApiSlice';
 import {
   useDeleteUserMutation,
   useGetUserQuery,
   useUpdateUserMutation,
-} from "./userApiSlice";
+} from './userApiSlice';
 
 const NAME_MAX_LENGTH: number = 100;
 const BIO_MAX_LENGTH: number = 80;
@@ -25,7 +25,7 @@ const BIO_MAX_LENGTH: number = 80;
 const schema = z.object({
   name: z
     .string()
-    .min(1, { message: "Name is required." })
+    .min(1, { message: 'Name is required.' })
     .max(NAME_MAX_LENGTH, {
       message: `Name cannot be more than ${NAME_MAX_LENGTH} characters.`,
     }),
@@ -68,13 +68,13 @@ const EditUser: React.FC<Props> = ({ handleModalClose }) => {
     setValue,
     formState: { errors, isSubmitSuccessful },
   } = useForm<Form>({
-    mode: "onSubmit",
+    mode: 'onSubmit',
     resolver: zodResolver(schema),
   });
 
   const dropzoneOptions: DropzoneOptions = {
     accept: {
-      "image/*": [".jpg", ".png"],
+      'image/*': ['.jpg', '.png'],
     },
     multiple: false,
     onDrop: onDrop,
@@ -82,7 +82,7 @@ const EditUser: React.FC<Props> = ({ handleModalClose }) => {
 
   function onDrop(files: File[]) {
     const image = files[0];
-    setValue("image", image);
+    setValue('image', image);
     setImageFile(image);
   }
 
@@ -108,9 +108,9 @@ const EditUser: React.FC<Props> = ({ handleModalClose }) => {
       await deleteUser(id).unwrap();
       await logout();
       handleModalClose();
-      navigate("/");
+      navigate('/');
     } catch (error) {
-      toast.error("Could not delete account.");
+      toast.error('Could not delete account.');
     }
   };
 
@@ -124,7 +124,7 @@ const EditUser: React.FC<Props> = ({ handleModalClose }) => {
 
     try {
       if (image) {
-        imageUrl = (await uploadFile(image, "images/")) as string;
+        imageUrl = (await uploadFile(image, 'images/')) as string;
 
         if (user?.image) {
           await deleteFile(user.image);
@@ -134,7 +134,7 @@ const EditUser: React.FC<Props> = ({ handleModalClose }) => {
       await updateUser({ id, inputs: { name, bio, image: imageUrl } }).unwrap();
       handleModalClose();
     } catch (error) {
-      toast.error("Could not update user.");
+      toast.error('Could not update user.');
     } finally {
       setIsLoading(false);
     }
@@ -151,32 +151,38 @@ const EditUser: React.FC<Props> = ({ handleModalClose }) => {
 
   function removeImageButtonOnClick() {
     setImagePreview(undefined);
-    resetField("image");
+    resetField('image');
   }
 
   return (
-    <form className="flex flex-col gap-4" onSubmit={handleSubmit(handleUpdate)}>
+    <form
+      className="flex flex-col gap-4"
+      onSubmit={handleSubmit(handleUpdate)}
+    >
       <Input
         id="name"
         label="Name"
-        {...register("name")}
+        {...register('name')}
         error={errors.name}
         maxLength={NAME_MAX_LENGTH}
-        defaultValue={getValues("name")}
+        defaultValue={getValues('name')}
         required
       />
 
       <TextArea
         id="bio"
         label="Bio"
-        {...register("bio")}
+        {...register('bio')}
         error={errors.bio}
         maxLength={BIO_MAX_LENGTH}
-        defaultValue={getValues("bio")}
+        defaultValue={getValues('bio')}
       />
 
       <div>
-        <label className="flex cursor-pointer flex-col gap-6" htmlFor="image">
+        <label
+          className="flex cursor-pointer flex-col gap-6"
+          htmlFor="image"
+        >
           <span>Image</span>
           {(imagePreview || user?.image) && (
             <div className="max-w-fit self-center">
@@ -202,7 +208,7 @@ const EditUser: React.FC<Props> = ({ handleModalClose }) => {
             <Dropzone
               id="image"
               dropzoneOptions={dropzoneOptions}
-              {...register("image")}
+              {...register('image')}
             />
           )}
 
@@ -221,9 +227,9 @@ const EditUser: React.FC<Props> = ({ handleModalClose }) => {
         <button
           type="submit"
           disabled={isLoading}
-          className={clsx("btn-primary btn", { loading: isLoading })}
+          className={clsx('btn-primary btn', { loading: isLoading })}
         >
-          {isLoading ? "updating" : "update"}
+          {isLoading ? 'updating' : 'update'}
         </button>
       </div>
     </form>

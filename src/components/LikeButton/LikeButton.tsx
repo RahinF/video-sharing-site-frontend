@@ -1,9 +1,9 @@
-import clsx from "clsx";
-import { Heart } from "phosphor-react";
-import { FC, useEffect, useState } from "react";
-import { useAppSelector } from "../app/hooks";
-import { selectCurrentUserId } from "../features/user/userSlice";
-import { abbreviateNumber } from "../util/number";
+import clsx from 'clsx';
+import { Heart } from 'phosphor-react';
+import { FC, useEffect, useState } from 'react';
+import { useAppSelector } from '../../app/hooks';
+import { selectCurrentUserId } from '../../features/user/userSlice';
+import { abbreviateNumber } from '../../util/number';
 
 interface Props {
   likes: string[];
@@ -34,8 +34,8 @@ const LikeButton: FC<Props> = ({ likes, handleLike, handleUnlike }) => {
       >
         <Heart
           size={24}
-          weight={isLiked ? "fill" : "regular"}
-          className={clsx({ "text-primary": isLiked })}
+          weight={isLiked ? 'fill' : 'regular'}
+          className={clsx({ 'text-primary': isLiked })}
         />
       </button>
       <span className="text-sm">{abbreviateNumber(likes.length)}</span>

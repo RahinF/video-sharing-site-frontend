@@ -1,19 +1,19 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import clsx from "clsx";
-import { useEffect, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "react-hot-toast";
-import { useNavigate, useParams } from "react-router-dom";
-import { z } from "zod";
-import Input from "../../components/Form/Input";
-import TextArea from "../../components/Form/TextArea";
-import { deleteFile } from "../../firebaseFunctions";
-import Tags from "./Tags";
+import { zodResolver } from '@hookform/resolvers/zod';
+import clsx from 'clsx';
+import { useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
+import { useNavigate, useParams } from 'react-router-dom';
+import { z } from 'zod';
+import Input from '../../components/Form/Input';
+import TextArea from '../../components/Form/TextArea';
+import { deleteFile } from '../../firebaseFunctions';
+import Tags from './Tags';
 import {
   useDeleteVideoMutation,
   useGetVideoQuery,
   useUpdateVideoMutation,
-} from "./videoApiSlice";
+} from './videoApiSlice';
 
 const TITLE_MAX_LENGTH: number = 100;
 const DESCRIPTION_MAX_LENGTH: number = 250;
@@ -21,19 +21,19 @@ const DESCRIPTION_MAX_LENGTH: number = 250;
 const schema = z.object({
   title: z
     .string()
-    .min(1, { message: "Title is required." })
+    .min(1, { message: 'Title is required.' })
     .max(TITLE_MAX_LENGTH, {
       message: `Title cannot be more than ${TITLE_MAX_LENGTH} characters.`,
     }),
   description: z
     .string()
-    .min(1, { message: "Description is required." })
+    .min(1, { message: 'Description is required.' })
     .max(DESCRIPTION_MAX_LENGTH, {
       message: `Description cannot be more than ${DESCRIPTION_MAX_LENGTH} characters.`,
     }),
   tags: z
     .object({
-      name: z.string().min(1, { message: "Tag must not be empty." }),
+      name: z.string().min(1, { message: 'Tag must not be empty.' }),
     })
     .array(),
 });
@@ -55,7 +55,7 @@ const EditVideo: React.FC<Props> = ({ handleModalClose }) => {
     control,
     formState: { errors, isSubmitSuccessful },
   } = useForm<Form>({
-    mode: "onSubmit",
+    mode: 'onSubmit',
     resolver: zodResolver(schema),
   });
 
@@ -93,10 +93,10 @@ const EditVideo: React.FC<Props> = ({ handleModalClose }) => {
           tags,
         },
       }).unwrap();
-      toast.success("Video updated.");
+      toast.success('Video updated.');
       handleModalClose();
     } catch (error) {
-      toast.error("Could not update video.");
+      toast.error('Could not update video.');
     } finally {
       setIsLoading(false);
     }
@@ -113,20 +113,23 @@ const EditVideo: React.FC<Props> = ({ handleModalClose }) => {
     try {
       await deleteFile(video!.videoUrl);
       await deleteVideo(id).unwrap();
-      toast.success("Video deleted.");
-      navigate("/", { replace: true });
+      toast.success('Video deleted.');
+      navigate('/', { replace: true });
     } catch (error) {
-      toast.error("Could not delete video.");
+      toast.error('Could not delete video.');
     }
   };
 
   return (
-    <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="flex flex-col gap-2"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div className="flex flex-col gap-6">
         <Input
           id="title"
           label="Title"
-          {...register("title")}
+          {...register('title')}
           error={errors.title}
           maxLength={TITLE_MAX_LENGTH}
           defaultValue={video?.title}
@@ -136,7 +139,7 @@ const EditVideo: React.FC<Props> = ({ handleModalClose }) => {
         <TextArea
           id="description"
           label="Description"
-          {...register("description")}
+          {...register('description')}
           error={errors.description}
           maxLength={DESCRIPTION_MAX_LENGTH}
           defaultValue={video?.description}
@@ -144,7 +147,11 @@ const EditVideo: React.FC<Props> = ({ handleModalClose }) => {
           required
         />
 
-        <Tags control={control} register={register} error={errors.tags} />
+        <Tags
+          control={control}
+          register={register}
+          error={errors.tags}
+        />
       </div>
 
       <div className="mt-8 flex justify-between">
@@ -160,10 +167,10 @@ const EditVideo: React.FC<Props> = ({ handleModalClose }) => {
         <button
           type="submit"
           disabled={isLoading}
-          className={clsx("btn btn-primary", { loading: isLoading })}
+          className={clsx('btn btn-primary', { loading: isLoading })}
           aria-label="update video details"
         >
-          {isLoading ? "Updating..." : "Update"}
+          {isLoading ? 'Updating...' : 'Update'}
         </button>
       </div>
     </form>

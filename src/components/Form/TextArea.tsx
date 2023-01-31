@@ -1,10 +1,10 @@
-import clsx from "clsx";
-import { FC, forwardRef, useEffect, useState } from "react";
-import { FieldError } from "react-hook-form";
-import Error from "./Error";
-import Label from "./Label";
+import clsx from 'clsx';
+import { FC, forwardRef, useEffect, useState } from 'react';
+import { FieldError } from 'react-hook-form';
+import Error from './Error';
+import Label from './Label';
 
-export type Type = "text" | "email" | "password";
+export type Type = 'text' | 'email' | 'password';
 
 interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   id: string;
@@ -23,7 +23,7 @@ const TextArea: FC<Props> = forwardRef<HTMLTextAreaElement, Props>(
       error,
       label,
       maxLength,
-      type = "text",
+      type = 'text',
       required = false,
       defaultValue,
       ...props
@@ -50,12 +50,12 @@ const TextArea: FC<Props> = forwardRef<HTMLTextAreaElement, Props>(
         <textarea
           id={id}
           ref={ref}
-          className={clsx("textarea bg-primary", {
-            "border-error focus:border-error focus:ring-error": error,
+          className={clsx('textarea bg-primary', {
+            'border-error focus:border-error focus:ring-error': error,
           })}
           {...(required && {
-            "aria-required": true,
-            "aria-invalid": !!error,
+            'aria-required': true,
+            'aria-invalid': !!error,
           })}
           {...props}
           {...(maxLength && {

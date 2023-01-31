@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
 
 interface MenuState {
   isOpen: boolean;
@@ -10,7 +10,7 @@ const initialState: MenuState = {
 };
 
 const menuSlice = createSlice({
-  name: "menu",
+  name: 'menu',
   initialState,
   reducers: {
     setMenuIsOpen(state, action: PayloadAction<boolean>) {

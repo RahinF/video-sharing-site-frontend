@@ -1,5 +1,5 @@
-import Videos from "../../components/Videos";
-import { useGetVideosQuery } from "../video/videoApiSlice";
+import Videos from '../../components/Videos';
+import { useGetVideosQuery } from '../video/videoApiSlice';
 
 interface Props {
   type: string;
@@ -8,7 +8,12 @@ interface Props {
 const Home = ({ type }: Props) => {
   const { data: videos, isLoading } = useGetVideosQuery(type);
 
-  return <Videos videos={videos} isLoading={isLoading} />;
+  return (
+    <Videos
+      videos={videos}
+      isLoading={isLoading}
+    />
+  );
 };
 
 export default Home;

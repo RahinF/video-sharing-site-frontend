@@ -1,9 +1,9 @@
-import clsx from "clsx";
-import { motion, Variants } from "framer-motion";
-import { FC, useState } from "react";
-import { z } from "zod";
+import clsx from 'clsx';
+import { motion, Variants } from 'framer-motion';
+import { FC, useState } from 'react';
+import { z } from 'zod';
 
-const sizes = z.enum(["sm", "md", "lg", "xl"]);
+const sizes = z.enum(['sm', 'md', 'lg', 'xl']);
 type Sizes = z.infer<typeof sizes>;
 
 interface Props {
@@ -22,20 +22,20 @@ const Avatar: FC<Props> = ({ src, alt, size }) => {
   return (
     <div
       className={clsx({
-        "overflow-hidden rounded-full": true,
-        "h-8 w-8": size === sizes.enum.sm,
-        "h-16 w-16": !size || size === sizes.enum.md, // default
-        "h-24 w-24": size === sizes.enum.lg,
-        "h-32 w-32": size === sizes.enum.xl,
-        "animate-pulse bg-zinc-700": !loaded,
-        "bg-primary-dark": !src,
+        'overflow-hidden rounded-full': true,
+        'h-8 w-8': size === sizes.enum.sm,
+        'h-16 w-16': !size || size === sizes.enum.md, // default
+        'h-24 w-24': size === sizes.enum.lg,
+        'h-32 w-32': size === sizes.enum.xl,
+        'animate-pulse bg-zinc-700': !loaded,
+        'bg-primary-dark': !src,
       })}
     >
       <motion.img
         src={src}
         alt={alt}
         initial="initial"
-        animate={loaded && "animate"}
+        animate={loaded && 'animate'}
         variants={variants}
         className="h-full w-full object-cover"
         onLoad={() => setLoaded(true)}

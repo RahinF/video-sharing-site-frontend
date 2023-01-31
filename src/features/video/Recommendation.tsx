@@ -1,7 +1,7 @@
-import { useGetVideosByTagsQuery, useGetVideosQuery } from "./videoApiSlice";
-import Videos from "../../components/Videos";
-import { useEffect, useState } from "react";
-import { Video } from "../../types/video";
+import { useGetVideosByTagsQuery, useGetVideosQuery } from './videoApiSlice';
+import Videos from '../../components/Videos';
+import { useEffect, useState } from 'react';
+import { Video } from '../../types/video';
 
 interface Props {
   tags: string[] | undefined;
@@ -19,7 +19,7 @@ const Recommendation = ({ tags, currentVideoId }: Props) => {
     data: trendingVideos,
     isLoading: trendingLoading,
     isSuccess: trendingSuccess,
-  } = useGetVideosQuery("trending");
+  } = useGetVideosQuery('trending');
 
   const [videos, setVideos] = useState<Video[]>([]);
 
@@ -42,7 +42,10 @@ const Recommendation = ({ tags, currentVideoId }: Props) => {
         <span className="text-primary">Related </span>Videos
       </h1>
 
-      <Videos videos={videos} isLoading={tagLoading || trendingLoading} />
+      <Videos
+        videos={videos}
+        isLoading={tagLoading || trendingLoading}
+      />
     </section>
   );
 };

@@ -1,6 +1,6 @@
-import { apiSlice } from "../../app/api/apiSlice";
-import User from "../../types/user";
-import { addSubscription, removeSubscription } from "./userSlice";
+import { apiSlice } from '../../app/api/apiSlice';
+import User from '../../types/user';
+import { addSubscription, removeSubscription } from './userSlice';
 
 const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -20,14 +20,14 @@ const userApiSlice = apiSlice.injectEndpoints({
     >({
       query: ({ id, inputs }) => ({
         url: `users/${id}`,
-        method: "PUT",
+        method: 'PUT',
         body: inputs,
       }),
     }),
     deleteUser: builder.mutation<string, string | undefined>({
       query: (id) => ({
         url: `users/${id}`,
-        method: "DELETE",
+        method: 'DELETE',
       }),
     }),
     subscribe: builder.mutation<
@@ -36,7 +36,7 @@ const userApiSlice = apiSlice.injectEndpoints({
     >({
       query: ({ currentUserId, videoOwnerId }) => ({
         url: `users/${currentUserId}/subscribe/${videoOwnerId}`,
-        method: "PUT",
+        method: 'PUT',
       }),
       async onQueryStarted({ videoOwnerId }, { dispatch, queryFulfilled }) {
         try {
@@ -53,7 +53,7 @@ const userApiSlice = apiSlice.injectEndpoints({
     >({
       query: ({ currentUserId, videoOwnerId }) => ({
         url: `users/${currentUserId}/unsubscribe/${videoOwnerId}`,
-        method: "PUT",
+        method: 'PUT',
       }),
       async onQueryStarted({ videoOwnerId }, { dispatch, queryFulfilled }) {
         try {
@@ -68,13 +68,13 @@ const userApiSlice = apiSlice.injectEndpoints({
 });
 
 apiSlice.enhanceEndpoints({
-  addTagTypes: ["User"],
+  addTagTypes: ['User'],
   endpoints: {
     getUser: {
-      providesTags: ["User"],
+      providesTags: ['User'],
     },
     updateUser: {
-      invalidatesTags: ["User"],
+      invalidatesTags: ['User'],
     },
   },
 });

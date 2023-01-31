@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from 'react';
 import {
   Control,
   FieldError,
@@ -6,8 +6,8 @@ import {
   Merge,
   useFieldArray,
   UseFormRegister,
-} from "react-hook-form";
-import Error from "../../components/Form/Error";
+} from 'react-hook-form';
+import Error from '../../components/Form/Error';
 
 interface Tag {
   name: string;
@@ -27,13 +27,13 @@ const Tags: FC<Props> = ({ control, register, error }) => {
   const tagLimitReached: boolean = MAX_TAGS === tagCount;
 
   const { fields, append, remove } = useFieldArray({
-    name: "tags",
+    name: 'tags',
     control,
   });
 
   function addTag() {
     append({
-      name: "",
+      name: '',
     });
     setTagCount((count) => count + 1);
   }
@@ -51,7 +51,10 @@ const Tags: FC<Props> = ({ control, register, error }) => {
     <div className="flex flex-col gap-2">
       <span className="flex justify-between">
         <span>Tags</span>
-        <span className="text-sm" aria-hidden="true">
+        <span
+          className="text-sm"
+          aria-hidden="true"
+        >
           {tagCount} / {MAX_TAGS}
         </span>
       </span>

@@ -1,6 +1,6 @@
-import FocusTrap from "focus-trap-react";
-import { AnimatePresence, motion, Variants } from "framer-motion";
-import { IconProps } from "phosphor-react";
+import FocusTrap from 'focus-trap-react';
+import { AnimatePresence, motion, Variants } from 'framer-motion';
+import { IconProps } from 'phosphor-react';
 import {
   Children,
   cloneElement,
@@ -13,7 +13,7 @@ import {
   ReactNode,
   RefAttributes,
   useState,
-} from "react";
+} from 'react';
 
 interface Props {
   children: ReactNode;
@@ -79,20 +79,23 @@ const Dropdown: FC<Props> = ({ children, triggerIcon, ariaLabel }) => {
           closeDropdown();
         },
         className:
-          "flex w-full cursor-pointer rounded-lg hover:bg-primary px-4 py-2",
+          'flex w-full cursor-pointer rounded-lg hover:bg-primary px-4 py-2',
       });
     });
   }
 
   function handleEscapeKeyPress(event: KeyboardEvent<HTMLDivElement>) {
-    if (event.code === "Escape") {
+    if (event.code === 'Escape') {
       closeDropdown();
     }
   }
 
   return (
     <FocusTrap active={isOpen}>
-      <div className="relative" onKeyDown={handleEscapeKeyPress}>
+      <div
+        className="relative"
+        onKeyDown={handleEscapeKeyPress}
+      >
         <button
           type="button"
           onClick={toggleDropdown}

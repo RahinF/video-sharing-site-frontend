@@ -1,7 +1,7 @@
-import { useAppSelector } from "../../../app/hooks";
-import { selectCurrentToken } from "../../auth/authSlice";
-import { selectCurrentUserSubscriptions } from "../../user/userSlice";
-import Subscription from "./Subscription";
+import { useAppSelector } from '../../../app/hooks';
+import { selectCurrentToken } from '../../auth/authSlice';
+import { selectCurrentUserSubscriptions } from '../../user/userSlice';
+import Subscription from './Subscription';
 
 interface Props {
   closeMenu: () => void;
@@ -21,7 +21,11 @@ const Subscriptions: React.FC<Props> = ({ closeMenu }) => {
       {hasSubscriptions ? (
         <ul className="menu rounded-box p-2">
           {subscriptions.map((userId) => (
-            <Subscription key={userId} userId={userId} closeMenu={closeMenu} />
+            <Subscription
+              key={userId}
+              userId={userId}
+              closeMenu={closeMenu}
+            />
           ))}
         </ul>
       ) : (

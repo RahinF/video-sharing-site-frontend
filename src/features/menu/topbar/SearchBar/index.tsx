@@ -1,13 +1,13 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import clsx from "clsx";
-import { MagnifyingGlass } from "phosphor-react";
-import { FC, FocusEvent, useEffect, useRef, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { z } from "zod";
+import { zodResolver } from '@hookform/resolvers/zod';
+import clsx from 'clsx';
+import { MagnifyingGlass } from 'phosphor-react';
+import { FC, FocusEvent, useEffect, useRef, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { z } from 'zod';
 
 const schema = z.object({
-  query: z.string().min(1, { message: "Query cannot be empty." }),
+  query: z.string().min(1, { message: 'Query cannot be empty.' }),
 });
 
 type Form = z.infer<typeof schema>;
@@ -22,9 +22,9 @@ const SearchBar: FC = () => {
     handleSubmit,
     reset,
     formState: { errors, isSubmitSuccessful },
-  } = useForm<Form>({ mode: "onBlur", resolver: zodResolver(schema) });
+  } = useForm<Form>({ mode: 'onBlur', resolver: zodResolver(schema) });
 
-  const { ref, ...rest } = register("query");
+  const { ref, ...rest } = register('query');
 
   useEffect(() => {
     if (isSubmitSuccessful) {
@@ -70,8 +70,8 @@ const SearchBar: FC = () => {
     <div className="flex">
       <input
         aria-label="search bar"
-        className={clsx("input pr-14", {
-          "border-error focus:border-error focus:ring-error": errors.query,
+        className={clsx('input pr-14', {
+          'border-error focus:border-error focus:ring-error': errors.query,
         })}
         placeholder="Search"
         {...rest}
@@ -94,7 +94,7 @@ const SearchBar: FC = () => {
     <form
       onSubmit={handleSubmit(onSubmit)}
       className={clsx({
-        "absolute left-0 z-50 w-full px-2": focus,
+        'absolute left-0 z-50 w-full px-2': focus,
       })}
       onBlur={handleOnBlur}
     >

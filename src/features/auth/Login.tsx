@@ -1,19 +1,19 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import clsx from "clsx";
-import { FC, useEffect, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { z } from "zod";
-import Input from "../../components/Form/Input";
-import { Error } from "../../types/error";
-import { useLoginMutation } from "./authApiSlice";
+import { zodResolver } from '@hookform/resolvers/zod';
+import clsx from 'clsx';
+import { FC, useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { z } from 'zod';
+import Input from '../../components/Form/Input';
+import { Error } from '../../types/error';
+import { useLoginMutation } from './authApiSlice';
 
 const schema = z.object({
-  email: z.string().min(1, { message: "Email is required." }).email({
+  email: z.string().min(1, { message: 'Email is required.' }).email({
     message:
-      "Please provide an email in the correct format e.g. john.doe@gmail.com",
+      'Please provide an email in the correct format e.g. john.doe@gmail.com',
   }),
-  password: z.string().min(1, { message: "Password is required." }),
+  password: z.string().min(1, { message: 'Password is required.' }),
 });
 
 type Form = z.infer<typeof schema>;
@@ -27,9 +27,9 @@ const Login: FC = () => {
     handleSubmit,
     reset,
     formState: { errors, isSubmitSuccessful },
-  } = useForm<Form>({ mode: "onBlur", resolver: zodResolver(schema) });
+  } = useForm<Form>({ mode: 'onBlur', resolver: zodResolver(schema) });
 
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const onSubmit: SubmitHandler<Form> = async (data) => {
     try {
@@ -38,7 +38,7 @@ const Login: FC = () => {
       navigate(-1);
     } catch (error) {
       const result = error as Error;
-      if (typeof result.data === "string") {
+      if (typeof result.data === 'string') {
         setErrorMessage(result.data);
       }
     }
@@ -64,7 +64,7 @@ const Login: FC = () => {
             id="email"
             label="Email"
             type="email"
-            {...register("email")}
+            {...register('email')}
             error={errors.email}
             required
           />
@@ -73,22 +73,25 @@ const Login: FC = () => {
             id="password"
             label="Password"
             type="password"
-            {...register("password")}
+            {...register('password')}
             error={errors.password}
             required
           />
         </div>
 
-        <div aria-hidden className="mt-8">
+        <div
+          aria-hidden
+          className="mt-8"
+        >
           Fields marked with <span className="text-error">*</span> are required.
         </div>
 
         <div className="mt-8 grid justify-center">
           <button
             disabled={isLoading}
-            className={clsx("btn", { loading: isLoading })}
+            className={clsx('btn', { loading: isLoading })}
           >
-            {isLoading ? "Loading..." : "Login"}
+            {isLoading ? 'Loading...' : 'Login'}
           </button>
         </div>
       </form>

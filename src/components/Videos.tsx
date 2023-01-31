@@ -1,6 +1,6 @@
-import { Video } from "../types/video";
-import Card from "./Card/Card";
-import Skeleton from "./skeletons/Skeleton";
+import { Video } from '../types/video';
+import Card from './Card/Card';
+import Skeleton from './skeletons/Skeleton';
 
 interface Props {
   videos: Video[] | undefined;
@@ -12,9 +12,17 @@ const Videos = ({ videos, isLoading, placeholder = 8 }: Props) => {
   return (
     <div className="grid grid-cols-1 items-start gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {isLoading ? (
-        <Skeleton type="card" count={placeholder} />
+        <Skeleton
+          type="card"
+          count={placeholder}
+        />
       ) : (
-        videos?.map((video) => <Card key={video._id} video={video} />)
+        videos?.map((video) => (
+          <Card
+            key={video._id}
+            video={video}
+          />
+        ))
       )}
     </div>
   );

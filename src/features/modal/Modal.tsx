@@ -1,7 +1,7 @@
-import FocusTrap from "focus-trap-react";
-import { X } from "phosphor-react";
-import { KeyboardEvent, useEffect } from "react";
-import { createPortal } from "react-dom";
+import FocusTrap from 'focus-trap-react';
+import { X } from 'phosphor-react';
+import { KeyboardEvent, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 interface Props {
   title: string;
@@ -12,15 +12,15 @@ interface Props {
 
 const Modal = ({ title, children, isOpen, handleClose }: Props) => {
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "visible";
+    document.body.style.overflow = isOpen ? 'hidden' : 'visible';
 
     return () => {
-      document.body.style.overflow = "visible";
+      document.body.style.overflow = 'visible';
     };
   }, [isOpen]);
 
   const handleEscapeKeyPress = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.code === "Escape") {
+    if (event.code === 'Escape') {
       handleClose();
     }
   };
@@ -51,7 +51,7 @@ const Modal = ({ title, children, isOpen, handleClose }: Props) => {
         </div>
       </div>
     </FocusTrap>,
-    document.getElementById("modal-root")!
+    document.getElementById('modal-root')!
   );
 };
 

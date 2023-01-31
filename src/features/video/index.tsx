@@ -1,7 +1,7 @@
-import { useParams } from "react-router-dom";
-import Recommendation from "./Recommendation";
-import { useAddViewMutation, useGetVideoQuery } from "./videoApiSlice";
-import VideoInfo from "./VideoInfo";
+import { useParams } from 'react-router-dom';
+import Recommendation from './Recommendation';
+import { useAddViewMutation, useGetVideoQuery } from './videoApiSlice';
+import VideoInfo from './VideoInfo';
 
 const Video: React.FC = () => {
   const { id } = useParams();
@@ -27,7 +27,10 @@ const Video: React.FC = () => {
       />
       {video?._id && <VideoInfo video={video} />}
 
-      <Recommendation tags={video?.tags} currentVideoId={id} />
+      <Recommendation
+        tags={video?.tags}
+        currentVideoId={id}
+      />
     </div>
   );
 };

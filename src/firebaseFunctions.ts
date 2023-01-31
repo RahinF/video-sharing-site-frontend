@@ -5,8 +5,8 @@ import {
   ref,
   uploadBytesResumable,
   uploadString,
-} from "firebase/storage";
-import app from "./firebase";
+} from 'firebase/storage';
+import app from './firebase';
 
 /**
  * @param file - file from input
@@ -19,7 +19,7 @@ export function uploadFile(file: File, location: string) {
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
-      "state_changed",
+      'state_changed',
       null,
       (error) => {
         reject(error);
@@ -36,10 +36,10 @@ export function uploadFile(file: File, location: string) {
 export function uploadFileBase64(file: string, location: string) {
   return new Promise((resolve, reject) => {
     const storage = getStorage(app);
-    const image = file.split(",")[1]; // prevents FirebaseError: Firebase Storage: String does not match format 'base64': Invalid character found (storage/invalid-format)
-    const filename = location + Date.now() + ".png";
+    const image = file.split(',')[1]; // prevents FirebaseError: Firebase Storage: String does not match format 'base64': Invalid character found (storage/invalid-format)
+    const filename = location + Date.now() + '.png';
     const storageRef = ref(storage, filename);
-    uploadString(storageRef, image, "base64")
+    uploadString(storageRef, image, 'base64')
       .then((snapshot) => {
         getDownloadURL(snapshot.ref).then((downloadURL) => {
           resolve(downloadURL);

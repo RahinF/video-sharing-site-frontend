@@ -47,7 +47,8 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "eslint-config-prettier"
     ],
     "overrides": [
       {
@@ -92,6 +93,7 @@
     "autoprefixer": "^10.4.13",
     "babel-plugin-named-exports-order": "^0.0.2",
     "concurrently": "^7.6.0",
+    "eslint-config-prettier": "^8.6.0",
     "msw": "^1.0.0",
     "postcss": "^8.4.20",
     "prettier": "^2.8.1",

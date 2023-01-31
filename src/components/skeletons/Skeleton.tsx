@@ -1,12 +1,12 @@
-import Card from "./Card";
-import Comment from "./Comment";
+import Card from './Card';
+import Comment from './Comment';
 
 interface Props {
-  type: "card" | "comment";
+  type: 'card' | 'comment';
   count: number;
 }
 const Skeleton = ({ type, count }: Props) => {
-  if (type === "card")
+  if (type === 'card')
     return (
       <>
         {[...Array(count)].map((_, index) => (
@@ -15,7 +15,7 @@ const Skeleton = ({ type, count }: Props) => {
       </>
     );
 
-  if (type === "comment")
+  if (type === 'comment')
     return (
       <>
         {[...Array(count)].map((_, index) => (

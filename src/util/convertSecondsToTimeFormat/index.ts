@@ -3,7 +3,7 @@ const convertSecondsToTimeFormat = (duration: number): string => {
   const secondsToMilliseconds = duration * 1000;
 
   if (duration >= secondsInAnHour * 24) {
-    return "24:00:00";
+    return '24:00:00';
   }
 
   const time =
