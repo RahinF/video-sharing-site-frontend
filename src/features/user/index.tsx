@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { useAppSelector } from '../../app/hooks';
 import Avatar from '../../components/Avatar';
 import SubscribeButton from '../../components/SubscribeButton';
-import Videos from '../../components/Videos';
+import Videos from '../../components/Videos/Videos';
 import { Video } from '../../types/video';
 import { pluralizeAndAbbreviateNumber } from '../../util/number';
 import Modal from '../modal/Modal';

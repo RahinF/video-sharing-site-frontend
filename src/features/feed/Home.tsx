@@ -1,4 +1,4 @@
-import Videos from '../../components/Videos';
+import Videos from '../../components/Videos/Videos';
 import { useGetVideosQuery } from '../video/videoApiSlice';
 
 interface Props {

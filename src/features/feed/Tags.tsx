@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
-import Videos from '../../components/Videos';
+import Videos from '../../components/Videos/Videos';
 import { useGetVideosByTagsQuery } from '../video/videoApiSlice';
 
 const Tags = () => {

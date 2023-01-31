@@ -1,7 +1,7 @@
-import { useGetVideosByTagsQuery, useGetVideosQuery } from './videoApiSlice';
-import Videos from '../../components/Videos';
 import { useEffect, useState } from 'react';
+import Videos from '../../components/Videos/Videos';
 import { Video } from '../../types/video';
+import { useGetVideosByTagsQuery, useGetVideosQuery } from './videoApiSlice';
 
 interface Props {
   tags: string[] | undefined;
