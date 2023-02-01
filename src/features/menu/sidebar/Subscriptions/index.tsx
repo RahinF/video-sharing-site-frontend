@@ -1,13 +1,14 @@
-import { useAppSelector } from '../../../app/hooks';
-import { selectCurrentToken } from '../../auth/authSlice';
-import { selectCurrentUserSubscriptions } from '../../user/userSlice';
-import Subscription from './Subscription';
+import { FC } from 'react';
+import { useAppSelector } from '../../../../app/hooks';
+import { selectCurrentToken } from '../../../auth/authSlice';
+import { selectCurrentUserSubscriptions } from '../../../user/userSlice';
+import Subscription from '../Subscription';
 
 interface Props {
   closeMenu: () => void;
 }
 
-const Subscriptions: React.FC<Props> = ({ closeMenu }) => {
+const Subscriptions: FC<Props> = ({ closeMenu }) => {
   const subscriptions = useAppSelector(selectCurrentUserSubscriptions);
   const isLoggedIn = useAppSelector(selectCurrentToken);
 

@@ -83,7 +83,7 @@ describe('Register', () => {
     await user.click(submitButton);
 
     expect(name.value.length).toBeGreaterThan(maxLength);
-    
+
     const errors = await screen.findAllByRole('alert');
     expect(errors).toHaveLength(1);
   });
