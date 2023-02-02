@@ -17,7 +17,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<UserState>) {
+    setUser(state, action) {
       const { id, image, subscriptions } = action.payload;
       state.id = id;
       state.image = image;

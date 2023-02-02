@@ -1,4 +1,5 @@
 import { rest } from 'msw';
+import { mockUser } from '../utils/mockData';
 
 export const handlers = [
   rest.get(
@@ -15,6 +16,19 @@ export const handlers = [
         }),
         context.delay(150)
       );
+    }
+  ),
+  rest.put(
+    `http://localhost:8000/api/v1/users/${mockUser.id}/subscribe/*`,
+    (request, response, context) => {
+      return response(context.status(200))
+    }
+  ),
+
+  rest.put(
+    `http://localhost:8000/api/v1/users/${mockUser.id}/unsubscribe/*`,
+    (request, response, context) => {
+      return response(context.status(200))
     }
   ),
 ];

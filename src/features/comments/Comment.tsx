@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Avatar from '../../components/Avatar';
 import Dropdown from '../../components/Dropdown/Dropdown';
-import LikeButton from '../../components/LikeButton/LikeButton';
+import LikeButton from '../../components/LikeButton';
 import { Comment as CommentType } from '../../types/comment';
 import { timeAgo } from '../../util/date';
 import { useGetUserQuery } from '../user/userApiSlice';

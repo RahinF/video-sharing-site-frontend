@@ -1,10 +1,10 @@
 import { screen } from '@testing-library/react';
 import Subscriptions from '.';
 import { renderWithProviders } from '../../../../utils/test-utils';
+import { mockAuthToken, mockUser } from '../../../../utils/mockData';
 
 const mockCloseMenu = jest.fn();
-const mockAuthToken = { token: '1' };
-const mockUser = { id: '1', image: null, subscriptions: ['1', '2'] };
+
 
 test('if not logged in do not render', () => {
   renderWithProviders(<Subscriptions closeMenu={mockCloseMenu} />);

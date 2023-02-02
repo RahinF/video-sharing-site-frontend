@@ -1,15 +1,15 @@
 import { FC, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAppSelector } from '../app/hooks';
+import { useAppSelector } from '../../app/hooks';
 import {
   useSubscribeMutation,
   useUnsubscribeMutation,
-} from '../features/user/userApiSlice';
+} from '../../features/user/userApiSlice';
 import {
   selectCurrentUserId,
   selectCurrentUserSubscriptions,
-} from '../features/user/userSlice';
-import User from '../types/user';
+} from '../../features/user/userSlice';
+import User from '../../types/user';
 
 interface Props {
   videoOwner: User | undefined;

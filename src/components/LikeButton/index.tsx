@@ -33,6 +33,7 @@ const LikeButton: FC<Props> = ({ likes, handleLike, handleUnlike }) => {
         aria-label="like video"
       >
         <Heart
+          data-testid="like icon"
           size={24}
           weight={isLiked ? 'fill' : 'regular'}
           className={clsx({ 'text-primary': isLiked })}

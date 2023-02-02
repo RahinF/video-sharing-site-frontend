@@ -3,7 +3,7 @@ import { BookOpen, ChatTeardropDots } from 'phosphor-react';
 import { FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppSelector } from '../../app/hooks';
-import LikeButton from '../../components/LikeButton/LikeButton';
+import LikeButton from '../../components/LikeButton';
 import { Video } from '../../types/video';
 import Comments from '../comments/Comments';
 import { selectCurrentUserId } from '../user/userSlice';
