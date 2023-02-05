@@ -1,7 +1,8 @@
 import { DotsThreeVertical } from 'phosphor-react';
+import { FC } from 'react';
 import { toast } from 'react-hot-toast';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../app/hooks';
 import Avatar from '../../components/Avatar';
 import Dropdown from '../../components/Dropdown/Dropdown';
 import LikeButton from '../../components/LikeButton';
@@ -19,8 +20,8 @@ interface Props {
   comment: CommentType;
 }
 
-const Comment = ({ comment }: Props) => {
-  const currentUserId = useSelector(selectCurrentUserId);
+const Comment: FC<Props> = ({ comment }) => {
+  const currentUserId = useAppSelector(selectCurrentUserId);
   const [deleteComment] = useDeleteCommentMutation();
   const [likeComment] = useLikeCommentMutation();
   const [unlikeComment] = useUnlikeCommentMutation();
@@ -47,7 +48,10 @@ const Comment = ({ comment }: Props) => {
   };
 
   return (
-    <div className="flex gap-4">
+    <div
+      className="flex gap-4"
+      data-testid="comment"
+    >
       <Link to={`/user/${user?._id}`}>
         <Avatar
           src={user?.image}
@@ -71,6 +75,7 @@ const Comment = ({ comment }: Props) => {
             likes={comment.likes}
             handleLike={handleLike}
             handleUnlike={handleUnlike}
+            type="comment"
           />
         </div>
       </div>

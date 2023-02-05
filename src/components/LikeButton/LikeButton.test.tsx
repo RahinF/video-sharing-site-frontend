@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import LikeButton from '.';
-import { mockUser } from '../../utils/mockData';
+import { mockAuthUser } from '../../utils/mockData';
 import { renderWithProviders } from '../../utils/test-utils';
 
 test('if renders', () => {
@@ -13,6 +13,7 @@ test('if renders', () => {
       likes={likes}
       handleLike={handleLike}
       handleUnlike={handleUnlike}
+      type="video"
     />
   );
 
@@ -31,6 +32,7 @@ test('if not logged in button doesnt fire', async () => {
       likes={likes}
       handleLike={handleLike}
       handleUnlike={handleUnlike}
+      type="video"
     />
   );
 
@@ -52,10 +54,11 @@ test('if clicked user is added to likes', async () => {
       likes={likes}
       handleLike={handleLike}
       handleUnlike={handleUnlike}
+      type="video"
     />,
     {
       preloadedState: {
-        user: mockUser,
+        user: mockAuthUser,
       },
     }
   );
@@ -67,7 +70,7 @@ test('if clicked user is added to likes', async () => {
 });
 
 test('if user is in likes list remove them', async () => {
-  const likes: string[] = [`${mockUser.id}`];
+  const likes: string[] = [`${mockAuthUser.id}`];
   const handleLike = jest.fn();
   const handleUnlike = jest.fn();
 
@@ -76,10 +79,11 @@ test('if user is in likes list remove them', async () => {
       likes={likes}
       handleLike={handleLike}
       handleUnlike={handleUnlike}
+      type="video"
     />,
     {
       preloadedState: {
-        user: mockUser,
+        user: mockAuthUser,
       },
     }
   );

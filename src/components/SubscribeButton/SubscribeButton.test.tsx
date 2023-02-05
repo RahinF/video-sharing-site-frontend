@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import SubscribeButton from '.';
-import { mockUser } from '../../utils/mockData';
+import { mockAuthUser } from '../../utils/mockData';
 import { renderWithProviders } from '../../utils/test-utils';
 
 const videoOwner = {
@@ -26,7 +26,7 @@ test('displays subscribed as button text if user is already subscribed', async (
   renderWithProviders(
     <SubscribeButton videoOwner={videoOwnerAlreadyInUserSubscriptions} />,
     {
-      preloadedState: { user: mockUser },
+      preloadedState: { user: mockAuthUser },
     }
   );
 
@@ -35,7 +35,7 @@ test('displays subscribed as button text if user is already subscribed', async (
 
 test('on click button fires event and text changes to subscribed', async () => {
   renderWithProviders(<SubscribeButton videoOwner={videoOwner} />, {
-    preloadedState: { user: mockUser },
+    preloadedState: { user: mockAuthUser },
   });
 
   user.setup();
@@ -48,7 +48,7 @@ test('on click button fires event and text changes to subscribe', async () => {
   renderWithProviders(
     <SubscribeButton videoOwner={videoOwnerAlreadyInUserSubscriptions} />,
     {
-      preloadedState: { user: mockUser },
+      preloadedState: { user: mockAuthUser },
     }
   );
 

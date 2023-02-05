@@ -25,6 +25,10 @@ const schema = z.object({
 
 type Form = z.infer<typeof schema>;
 
+const rowsIfFocus: number = 4;
+const rowsDefault: number = 1;
+
+
 const NewComment: FC<Props> = ({ videoId }) => {
   const [postComment] = usePostCommentMutation();
   const currentUserId = useAppSelector(selectCurrentUserId);
@@ -74,7 +78,7 @@ const NewComment: FC<Props> = ({ videoId }) => {
       <TextArea
         id="comment"
         label="Add comment"
-        rows={isFocused ? 4 : 1}
+        rows={isFocused ? rowsIfFocus : rowsDefault}
         {...register('comment')}
         error={errors.comment}
         maxLength={COMMENT_MAX_LENGTH}

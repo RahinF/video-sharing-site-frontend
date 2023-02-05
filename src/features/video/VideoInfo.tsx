@@ -80,6 +80,7 @@ const VideoInfo: FC<Props> = ({ video }) => {
             likes={video.likes}
             handleLike={handleLike}
             handleUnlike={handleUnlike}
+            type='video'
           />
         </div>
       </div>

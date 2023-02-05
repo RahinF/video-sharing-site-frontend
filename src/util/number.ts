@@ -39,5 +39,5 @@ export const pluralizeAndAbbreviateNumber = (word: string, number: number) => {
  * @returns string
  */
 export const pluralizeAndFormatNumber = (word: string, number: number) => {
-  return `${formatNumber(number)}  ${pluralize(word, number)}`;
+  return `${formatNumber(number)} ${pluralize(word, number)}`;
 };

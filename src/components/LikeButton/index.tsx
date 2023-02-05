@@ -9,9 +9,10 @@ interface Props {
   likes: string[];
   handleLike: () => void;
   handleUnlike: () => void;
+  type: 'video' | 'comment';
 }
 
-const LikeButton: FC<Props> = ({ likes, handleLike, handleUnlike }) => {
+const LikeButton: FC<Props> = ({ likes, handleLike, handleUnlike, type }) => {
   const currentUserId = useAppSelector(selectCurrentUserId);
   const isLoggedIn = currentUserId;
   const [isLiked, setIsLiked] = useState(false);
@@ -30,7 +31,7 @@ const LikeButton: FC<Props> = ({ likes, handleLike, handleUnlike }) => {
       <button
         onClick={handleOnClick}
         className="btn-ghost btn-circle btn"
-        aria-label="like video"
+        aria-label={`like ${type}`}
       >
         <Heart
           data-testid="like icon"

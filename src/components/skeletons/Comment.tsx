@@ -1,6 +1,11 @@
-const Comment = () => {
+import { FC } from 'react';
+
+const Comment: FC = () => {
   return (
-    <div className="flex animate-pulse gap-3">
+    <div
+      data-testid="comment-skeleton"
+      className="flex animate-pulse gap-3"
+    >
       <div className="h-16 w-16 flex-none rounded-full bg-zinc-700" />
 
       <div className="flex w-full flex-col gap-3">

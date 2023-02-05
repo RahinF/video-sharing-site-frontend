@@ -1,10 +1,9 @@
 import { screen } from '@testing-library/react';
 import Subscriptions from '.';
+import { mockAuthToken, mockAuthUser } from '../../../../utils/mockData';
 import { renderWithProviders } from '../../../../utils/test-utils';
-import { mockAuthToken, mockUser } from '../../../../utils/mockData';
 
 const mockCloseMenu = jest.fn();
-
 
 test('if not logged in do not render', () => {
   renderWithProviders(<Subscriptions closeMenu={mockCloseMenu} />);
@@ -28,11 +27,11 @@ test('if subscriptions render if user has subscriptions', () => {
   renderWithProviders(<Subscriptions closeMenu={mockCloseMenu} />, {
     preloadedState: {
       auth: mockAuthToken,
-      user: mockUser,
+      user: mockAuthUser,
     },
   });
 
   expect(screen.getAllByRole('listitem')).toHaveLength(
-    mockUser.subscriptions.length
+    mockAuthUser.subscriptions.length
   );
 });
