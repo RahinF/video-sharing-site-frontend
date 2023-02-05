@@ -3,10 +3,17 @@ import {
   mockAuthUser,
   mockComment,
   mockComments,
-  mockUser
+  mockUser,
+  mockVideos
 } from '../utils/mockData';
 
 export const handlers = [
+  rest.get(
+    'http://localhost:8000/api/v1/videos/*',
+    (request, response, context) => {
+      return response(context.json(mockVideos), context.delay(150));
+    }
+  ),
   rest.get(
     'http://localhost:8000/api/v1/users/find/*',
     (request, response, context) => {

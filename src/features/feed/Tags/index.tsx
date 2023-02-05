@@ -1,8 +1,9 @@
+import { FC } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import Videos from '../../components/Videos/Videos';
-import { useGetVideosByTagsQuery } from '../video/videoApiSlice';
+import Videos from '../../../components/Videos/Videos';
+import { useGetVideosByTagsQuery } from '../../video/videoApiSlice';
 
-const Tags = () => {
+const Tags: FC = () => {
   const [searchParams] = useSearchParams();
   const tag = searchParams.get('tags');
 

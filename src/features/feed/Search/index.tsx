@@ -1,8 +1,9 @@
+import { FC } from 'react';
 import { useLocation } from 'react-router-dom';
-import Videos from '../../components/Videos/Videos';
-import { useGetVideosBySearchQuery } from '../video/videoApiSlice';
+import Videos from '../../../components/Videos/Videos';
+import { useGetVideosBySearchQuery } from '../../video/videoApiSlice';
 
-const Search = () => {
+const Search: FC = () => {
   const { search } = useLocation();
   const { data: videos, isLoading } = useGetVideosBySearchQuery(search);
 

@@ -1,24 +1,8 @@
 import { screen } from '@testing-library/react';
 import { Video } from '../../types/video';
+import { mockVideos } from '../../utils/mockData';
 import { renderWithProviders } from '../../utils/test-utils';
 import Videos from './Videos';
-
-const videos: Video[] = [
-  {
-    userId: '1',
-    _id: '1',
-    description: 'desc',
-    title: 'title',
-    duration: 5,
-    imageUrl: '',
-    videoUrl: '',
-    views: 10,
-    createdAt: new Date('05 October 2011 14:48 UTC'),
-    updatedAt: new Date('05 October 2011 14:48 UTC'),
-    likes: ['1'],
-    tags: ['a'],
-  },
-];
 
 test('if loading skeleton is displayed', () => {
   const isLoading = true;
@@ -26,7 +10,7 @@ test('if loading skeleton is displayed', () => {
   renderWithProviders(
     <Videos
       isLoading={isLoading}
-      videos={videos}
+      videos={mockVideos}
       placeholder={placeholderCount}
     />
   );
@@ -39,11 +23,11 @@ test('if finished loading card is displayed', () => {
   renderWithProviders(
     <Videos
       isLoading={isLoading}
-      videos={videos}
+      videos={mockVideos}
     />
   );
 
-  expect(screen.getAllByRole('link')).toHaveLength(videos.length);
+  expect(screen.getAllByRole('link')).toHaveLength(mockVideos.length);
 });
 
 test('if there are no videos display text instead', () => {
