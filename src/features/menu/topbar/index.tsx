@@ -1,4 +1,5 @@
 import { List, UploadSimple, User } from 'phosphor-react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import Dropdown from '../../../components/Dropdown/Dropdown';
@@ -9,12 +10,12 @@ import { selectCurrentUserId } from '../../user/userSlice';
 import { selectMenuIsOpen, setMenuIsOpen } from '../menuSlice';
 import SearchBar from './SearchBar';
 
-const Navbar: React.FC = () => {
+const Topbar: FC = () => {
   const [logout] = useLogoutMutation();
   const currentUserId = useAppSelector(selectCurrentUserId);
   const menuIsOpen = useAppSelector(selectMenuIsOpen);
 
-  const isLoggedIn = currentUserId;
+  const isLoggedIn: boolean = !!currentUserId;
 
   const width = useWindowSize();
   const isDesktop = width > 1280;
@@ -46,6 +47,7 @@ const Navbar: React.FC = () => {
           <button
             className="btn-ghost btn-circle btn"
             onClick={toggleMenu}
+            aria-label="open menu"
           >
             <List size={24} />
           </button>
@@ -72,6 +74,7 @@ const Navbar: React.FC = () => {
             <Link
               to="/upload"
               className="btn-ghost btn-circle btn"
+              aria-label="upload"
             >
               <UploadSimple size={24} />
             </Link>
@@ -91,4 +94,4 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar;
+export default Topbar;

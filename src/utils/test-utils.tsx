@@ -4,6 +4,7 @@ import { PropsWithChildren, ReactElement } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { AppStore, RootState, setupStore } from '../app/store';
+import { GlobalProvider } from '../context/GlobalContext';
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: PreloadedState<RootState>;
@@ -21,7 +22,9 @@ export function renderWithProviders(
   function Wrapper({ children }: PropsWithChildren<{}>): JSX.Element {
     return (
       <Provider store={store}>
-        <BrowserRouter>{children}</BrowserRouter>
+        <BrowserRouter>
+          <GlobalProvider>{children}</GlobalProvider>
+        </BrowserRouter>
       </Provider>
     );
   }
