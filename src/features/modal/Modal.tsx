@@ -1,16 +1,16 @@
 import FocusTrap from 'focus-trap-react';
 import { X } from 'phosphor-react';
-import { KeyboardEvent, useEffect } from 'react';
+import { FC, KeyboardEvent, ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 interface Props {
   title: string;
-  children: React.ReactNode;
+  children: ReactNode;
   isOpen: boolean;
   handleClose: () => void;
 }
 
-const Modal = ({ title, children, isOpen, handleClose }: Props) => {
+const Modal: FC<Props> = ({ title, children, isOpen, handleClose }) => {
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : 'visible';
 
@@ -31,9 +31,14 @@ const Modal = ({ title, children, isOpen, handleClose }: Props) => {
     <FocusTrap>
       <div
         onKeyDown={handleEscapeKeyPress}
-        className="fixed top-0 left-0 z-50 grid h-full w-full place-items-center bg-black/50"
+        className="fixed top-0 left-0 z-50 grid h-full w-full place-items-center"
         role="dialog"
       >
+        <div
+          className="fixed -z-10 h-screen w-screen bg-black/50"
+          onClick={handleClose}
+          data-testid="backdrop"
+        />
         <div className="scrollbar-thin max-h-[90%] w-5/6 max-w-xl overflow-y-auto rounded-xl bg-base-200 p-4">
           <div className="sticky -top-4 z-50 grid grid-cols-3 items-center bg-base-200 py-4">
             <h1 className="col-start-2 justify-self-center text-xl font-medium">
