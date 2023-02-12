@@ -21,11 +21,11 @@ export function renderWithProviders(
 ) {
   function Wrapper({ children }: PropsWithChildren<{}>): JSX.Element {
     return (
-      <Provider store={store}>
-        <BrowserRouter>
+      <BrowserRouter>
+        <Provider store={store}>
           <GlobalProvider>{children}</GlobalProvider>
-        </BrowserRouter>
-      </Provider>
+        </Provider>
+      </BrowserRouter>
     );
   }
   return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };

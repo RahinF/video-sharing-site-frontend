@@ -20,6 +20,32 @@ export const handlers = [
       return response(context.json(mockUser), context.delay(150));
     }
   ),
+  rest.put(
+    'http://localhost:8000/api/v1/users/*',
+    (request, response, context) => {
+      return response(
+        context.status(200),
+        context.json(mockUser),
+        context.delay(150)
+      );
+    }
+  ),
+  rest.delete(
+    'http://localhost:8000/api/v1/users/*',
+    (request, response, context) => {
+      return response(
+        context.status(200),
+        context.json('deleted user'),
+        context.delay(150)
+      );
+    }
+  ),
+  rest.post(
+    'http://localhost:8000/api/v1/auth/logout',
+    (request, response, context) => {
+      return response(context.status(204));
+    }
+  ),
   rest.post(
     'http://localhost:8000/api/v1/comments/',
     (request, response, context) => {
@@ -42,10 +68,10 @@ export const handlers = [
       return response(context.status(200));
     }
   ),
-    rest.put(
-      `http://localhost:8000/api/v1/users/${mockAuthUser.id}/unsubscribe/*`,
-      (request, response, context) => {
-        return response(context.status(200));
-      }
-    ),
+  rest.put(
+    `http://localhost:8000/api/v1/users/${mockAuthUser.id}/unsubscribe/*`,
+    (request, response, context) => {
+      return response(context.status(200));
+    }
+  ),
 ];

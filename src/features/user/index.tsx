@@ -17,7 +17,7 @@ import EditUser from './EditUser';
 import { useGetUserQuery } from './userApiSlice';
 import { selectCurrentUserId } from './userSlice';
 
-const filters = z.enum(['latest', 'most viewed', 'top rated']);
+export const filters = z.enum(['latest', 'most viewed', 'top rated']);
 type Filters = z.infer<typeof filters>;
 
 const User: FC = () => {

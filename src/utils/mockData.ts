@@ -36,6 +36,9 @@ export const mockVideo: Video = {
   tags: ['a'],
 };
 
-export const mockVideos: Video[] = [mockVideo, mockVideo, mockVideo];
+export const mockVideos: Video[] = [...Array(3)].map((_, index) => ({
+  ...mockVideo,
+  _id: index.toString(),
+}));
 
 export const mockComments = [mockComment, mockComment, mockComment];

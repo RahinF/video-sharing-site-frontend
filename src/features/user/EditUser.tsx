@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import clsx from 'clsx';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { DropzoneOptions } from 'react-dropzone';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
@@ -19,8 +19,8 @@ import {
   useUpdateUserMutation,
 } from './userApiSlice';
 
-const NAME_MAX_LENGTH: number = 100;
-const BIO_MAX_LENGTH: number = 80;
+export const NAME_MAX_LENGTH: number = 30;
+export const BIO_MAX_LENGTH: number = 80;
 
 const schema = z.object({
   name: z
@@ -44,7 +44,7 @@ interface Props {
   handleModalClose: () => void;
 }
 
-const EditUser: React.FC<Props> = ({ handleModalClose }) => {
+const EditUser: FC<Props> = ({ handleModalClose }) => {
   const { id } = useParams();
   const { data: user, isSuccess } = useGetUserQuery(id);
   const [logout] = useLogoutMutation();
